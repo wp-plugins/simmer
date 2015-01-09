@@ -1,0 +1,81 @@
+/* Simmer's front-end styles */
+
+/** Global **/
+
+/* Box sizing */
+.simmer-recipe,
+.simmer-recipe * {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+/* Clearfixes */
+.simmer-recipe-details:before,
+.simmer-recipe-details:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+.simmer-recipe-details:after {
+    clear: both;
+}
+.simmer-recipe-details {
+    *zoom: 1;
+}
+
+/** Recipes **/
+
+.simmer-recipe {
+	padding: 20px;
+	background: rgba( 0, 0, 0, .01 );
+	border: 1px solid rgba( 0, 0, 0, 0.1 );
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+	        border-radius: 4px;
+}
+
+/* Meta */
+.simmer-recipe-meta {
+	font-size: 0.8em;
+}
+
+/* Details */
+.simmer-recipe-details {
+	margin: 1em -20px;
+	padding: 0;
+	list-style: none;
+	border: 1px solid rgba( 0, 0, 0, 0.2 );
+	border-right: none;
+	border-left: none;
+}
+.simmer-recipe-details li {
+	float: left;
+	width: 33.33%;
+	padding: 8px 20px;
+	text-align: center;
+	border-right: 1px dotted rgba( 0, 0, 0, 0.1 );
+}
+.simmer-recipe-details li:last-child {
+	border-bottom: none;
+}
+.simmer-recipe-details li:first-child,
+.simmer-recipe-details li:nth-child(4n+4) {
+}
+.simmer-recipe-details li:nth-child(3n+3) {
+	border-right: none;
+}
+
+/* Ingredients */
+.simmer-ingredients li {
+	margin-bottom: 0.5em;
+}
+
+/* Instructions */
+.simmer-instructions li {
+	margin-bottom: 1em;
+}
+
+/* Attribution */
+.simmer-recipe-attribution {
+	font-size: 0.8em;
+}
