@@ -110,7 +110,7 @@ final class Simmer_License_Manager {
 		
 		$response = json_decode( $response );
 	
-		if ( 'active' == $response->status_check ) {
+		if ( isset( $response->status_check ) && 'active' == $response->status_check ) {
 			return $response;
 		} else {
 			return false;
