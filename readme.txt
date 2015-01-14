@@ -1,9 +1,9 @@
 === Simmer for Recipes ===
 Contributors: ChaseWiseman, lchelak, gobwd
 Tags: recipes, recipe, cooking, food, food blog, content marketing, food content marketing, drinks, drink recipes, tutorial maker, tutorials, recipe maker, baking, crafts, DIY, do it yourself
-Requires at least: 3.6
+Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,5 +59,13 @@ Yes, with the Tinypass for Simmer extension (coming soon) you can easily monetiz
 
 == Changelog ==
 
+= 1.0.1 =
+Fixed an early exit error on clean uninstall
+
 = 1.0.0 =
 Preheating the oven to 450...
+
+== Upgrade Notice ==
+
+= 1.0.1 =
+This version fixes an error some encounter when attempting to uninstall the plugin. Please upgrade.
