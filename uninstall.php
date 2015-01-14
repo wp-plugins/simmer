@@ -9,14 +9,14 @@
 
 // If uninstall not called from WordPress, then exit.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-	exit;
+	return;
 }
 
 $on_uninstall = get_option( 'simmer_on_uninstall', 'keep_all' );
 
 // Check that the user wants everything deleted with the plugin.
 if ( 'keep_all' == $on_uninstall ) {
-	exit;
+	return;
 }
 
 if ( 'delete_settings' == $on_uninstall || 'delete_all' == $on_uninstall ) {
@@ -46,7 +46,7 @@ if ( 'delete_all' == $on_uninstall ) {
 	
 	// Delete all recipes.
 	$recipe_ids = get_posts( array(
-		'post_type'   => simmer_get_object_type(),
+		'post_type'   => 'recipe',
 		'post_status' => 'any',
 		'numberposts' => -1,
 		'fields'      => 'ids',
@@ -61,7 +61,7 @@ if ( 'delete_all' == $on_uninstall ) {
 	}
 	
 	// Delete all categories.
-	$category_ids = get_terms( simmer_get_category_taxonomy(), array(
+	$category_ids = get_terms( 'recipe_category', array(
 		'hide_empty' => false,
 		'fields'     => 'ids',
 	) );
@@ -69,7 +69,7 @@ if ( 'delete_all' == $on_uninstall ) {
 	if ( ! is_wp_error( $category_ids ) && ! empty( $category_ids ) ) {
 		
 		foreach ( $category_ids as $category_id ) {
-			wp_delete_term( $category_id, simmer_get_category_taxonomy() );
+			wp_delete_term( $category_id, 'recipe_category' );
 		}
 		
 	}
