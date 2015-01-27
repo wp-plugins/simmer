@@ -3,7 +3,7 @@ Contributors: ChaseWiseman, lchelak, gobwd
 Tags: recipes, recipe, cooking, food, food blog, content marketing, food content marketing, drinks, drink recipes, tutorial maker, tutorials, recipe maker, baking, crafts, DIY, do it yourself
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,10 +20,6 @@ Add ingredients, step-by-step instructions, sub-headings, structured cook times,
 **Simplicity**
 
 Simmer seamlessly fits within the existing structure and style of WordPress, so you'll barely notice it’s even a 3rd party plugin. Our team of leading user interface (UI) experts continually works to polish every part of the overall user experience for our customers as a part of our active, frequent release schedule, ensuring Simmer will always remain fluid, secure, and as close to flawless as we can achieve.
-
-**Coming Soon**
-
-**Extensions** - Extend your business to whatever length you desire with Simmer. Purchase just the extensions you need, and shop around to fit your business' goals.
 
 == Installation ==
 
@@ -58,6 +54,9 @@ Yes, Simmer provides a number of customized options for each recipe to provide m
 Yes, with the Tinypass for Simmer extension (coming soon) you can easily monetize your media business or blog through micro payments. [Find out more from Tinypass](http://tinypass.com/).
 
 == Changelog ==
+
+= 1.0.2 =
+Add licensing support
 
 = 1.0.1 =
 Fixed an early exit error on clean uninstall

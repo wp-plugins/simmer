@@ -8,11 +8,20 @@
  */
 ?>
 
-<?php $license = new Simmer_License_Manager(); ?>
+<?php $license = new Simmer_License(); ?>
 
-<?php if ( $license = $license->is_active() ) : ?>
+<?php if ( $license->exists() ) : ?>
 	
-	<?php echo esc_html( $license->status_extra->order_key ); ?>
+	<?php $status = $license->get_status(); ?>
+	
+	<span class="simmer-license-key-display"><code><?php echo esc_attr( $license->key ); ?></code></span>
+	
+	<span class="simmer-license-status-badge <?php echo esc_attr( $status ); ?>"><?php echo esc_attr( $status ); ?></span>
+	
+	<label for="simmer_license_deactivate">
+		<input id="simmer_license_deactivate" name="simmer_license[deactivate]" type="checkbox" value="1" />
+		<?php _e( 'Remove', Simmer::SLUG ); ?>
+	</label>
 	
 <?php else : ?>
 	

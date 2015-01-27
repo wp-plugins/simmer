@@ -25,7 +25,7 @@ final class Simmer {
 	 * @since 1.0.0
 	 * @var string The plugin version.
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.2';
 	
 	/**
 	 * The plugin slug.
@@ -158,11 +158,6 @@ final class Simmer {
 		 * The shortcode functions.
 		 */
 		require( plugin_dir_path( __FILE__ ) . 'class-simmer-recipe-shortcode.php' );
-		
-		/**
-		 * The license manager.
-		 */
-		require( plugin_dir_path( __FILE__ ) . 'class-simmer-license-manager.php' );
 	}
 	
 	/**

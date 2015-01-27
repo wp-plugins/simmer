@@ -11,7 +11,7 @@
  * Plugin Name: Simmer
  * Plugin URI:  http://simmerwp.com
  * Description: A recipe plugin for WordPress.
- * Version:     1.0.1
+ * Version:     1.0.2
  * Author:      BWD inc.
  * Author URI:  http://gobwd.com
  * License:     GPL-2.0+
@@ -24,6 +24,19 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+/**
+ * Load the main activation class definition.
+ */
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-simmer-activation.php' );
+
+register_activation_hook( __FILE__, 'Simmer_Activation::activate' );
+register_deactivation_hook( __FILE__, 'Simmer_Activation::deactivate' );
+
+/**
+ * Load the main Simmer license class definition.
+ */
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-simmer-license.php' );
 
 /**
  * Load the main Simmer class definition.

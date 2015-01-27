@@ -18,13 +18,13 @@
 	 */
 	do_action( 'simmer_before_extend_page' ); ?>
 	
-	<?php $license = new Simmer_License_Manager(); ?>
+	<?php $license = new Simmer_License(); ?>
 
 	<?php if ( $license->is_active() ) : ?>
 		
 		<h2><?php _e( 'Recipe Extensions', Simmer::SLUG ); ?></h2>
 		
-		<p><?php _e( 'These extensions expand the functionality of Simmer.', Simmer::SLUG ); ?></p>
+		<p><?php _e( 'Extend your business to whatever length you desire with Simmer. Purchase just the extensions you need, and shop around to fit your business\' goals.', Simmer::SLUG ); ?></p>
 		
 		<div class="wp-list-table widefat simmer-extensions-list">
 			
@@ -34,15 +34,17 @@
 					
 					<div class="simmer-extension-card-top">
 						
-						<a href="#" class="extension-icon"></a>
+						<a href="http://simmerwp.dev/product/recipe-connector/" class="extension-icon" target="_blank">
+							<img src="<?php echo esc_url( dirname( plugin_dir_url( __FILE__ ) ) . '/assets/extensions/recipe-connector.png' ); ?>" width="128" height="128" />
+						</a>
 						
 						<h4 class="extension-name">
-							<a href="http://simmerwp.com/extensions-themes/" target="_blank"><?php _e( 'Recipe Connector', Simmer::SLUG ); ?></a>
+							<a href="http://simmerwp.dev/product/recipe-connector/" target="_blank"><?php _e( 'Recipe Connector', Simmer::SLUG ); ?></a>
 						</h4>
 						
-						<a class="extension-get button button-primary" href="http://simmerwp.com/extensions-themes/" target="_blank"><?php _e( 'Get', Simmer::SLUG ); ?></a>
+						<a class="extension-get button button-primary" href="http://simmerwp.dev/product/recipe-connector/" target="_blank"><?php _e( 'Get', Simmer::SLUG ); ?></a>
 						
-						<p class="extension-description"><?php _e( 'Quickly &amp; easily connect recipes to the blog posts you\'ve written about them.', Simmer::SLUG ); ?></p>
+						<p class="extension-description"><?php _e( 'Attach individual recipes to a single blog post to keep your recipe database clear and concise', Simmer::SLUG ); ?></p>
 						
 					</div><!-- .simmer-extension-card-top -->
 					<?php /*
@@ -78,15 +80,17 @@
 					
 					<div class="simmer-extension-card-top">
 						
-						<a href="#" class="extension-icon"></a>
+						<a href="http://simmerwp.dev/product/tinypass-for-simmer/" class="extension-icon" target="_blank">
+							<img src="<?php echo esc_url( dirname( plugin_dir_url( __FILE__ ) ) . '/assets/extensions/simmer-tinypass.png' ); ?>" width="128" height="128" />
+						</a>
 						
 						<h4 class="extension-name">
-							<a href="#"><?php _e( 'Tinypass for Simmer', Simmer::SLUG ); ?></a>
+							<a href="http://simmerwp.dev/product/tinypass-for-simmer/" target="_blank"><?php _e( 'Tinypass for Simmer', Simmer::SLUG ); ?></a>
 						</h4>
 						
-						<a class="extension-get button button-primary" href="http://simmerwp.com/extensions-themes/" target="_blank"><?php _e( 'Get', Simmer::SLUG ); ?></a>
+						<a class="extension-get button button-primary" href="http://simmerwp.dev/product/tinypass-for-simmer/" target="_blank"><?php _e( 'Get', Simmer::SLUG ); ?></a>
 						
-						<p class="extension-description"><?php _e( 'Integrate the Tinypass service with Simmer to easily monetizing your recipes.', Simmer::SLUG ); ?></p>
+						<p class="extension-description"><?php _e( 'Tinypass for Simmer is an extension that allows WordPress websites to connect the power of micro e-commerce to monetize your food, drink, or recipe content instantly with Simmer.', Simmer::SLUG ); ?></p>
 						
 					</div><!-- .simmer-extension-card-top -->
 					<?php /*
@@ -124,7 +128,7 @@
 		
 	<?php else : ?>
 		
-		<h2><?php _e( 'Coming Soon to Simmer', Simmer::SLUG ); ?></h2>
+		<h2><?php _e( 'Get the Most out of Simmer', Simmer::SLUG ); ?></h2>
 		
 		<div class="simmer-coming-soon">
 			
@@ -148,7 +152,7 @@
 				
 			</div><!-- .extensions -->
 			
-			<a class="button button-primary" href="http://simmerwp.com" target="_blank">Sign up at simmerwp.com for more details</a>
+			<a class="button button-primary" href="http://simmerwp.com/pricing/" target="_blank">Purchase Now</a>
 			
 		</div><!-- .simmer-coming-soon -->
 		

@@ -178,8 +178,8 @@ final class Simmer_Admin_Settings {
 		// Add the license settings section.
 		add_settings_section(
 			'simmer_license_add',
-			__( 'License Information', Simmer::SLUG ),
-			'__return_false',
+			__( 'Simmer License', Simmer::SLUG ),
+			array( $this, 'license_section_callback' ),
 			'simmer_license'
 		);
 		
@@ -193,24 +193,31 @@ final class Simmer_Admin_Settings {
 			'simmer_license',
 			'simmer_license_add'
 		);
-		add_settings_field(
-			'simmer_license_email',
-			__( 'License Email', Simmer::SLUG ),
-			array( $this, 'license_email_callback' ),
-			'simmer_license',
-			'simmer_license_add'
-		);
 		
-		$license = new Simmer_License_Manager();
+		$license = new Simmer_License();
 
-		if ( $license->is_active() ) {
-			
+		if ( ! $license->get_status() ) {
+				
 			add_settings_field(
-				'simmer_license_deactivate',
-				__( 'Deactivate', Simmer::SLUG ),
-				array( $this, 'license_deactivate_callback' ),
+				'simmer_license_email',
+				__( 'License Email', Simmer::SLUG ),
+				array( $this, 'license_email_callback' ),
 				'simmer_license',
 				'simmer_license_add'
+			);
+			
+		}
+		
+		global $simmer_extensions;
+		
+		if ( ! empty( $simmer_extensions ) ) {
+			
+			// Add the extensions license settings section.
+			add_settings_section(
+				'simmer_license_extensions',
+				__( 'Extension Licenses', Simmer::SLUG ),
+				array( $this, 'license_extensions_section_callback' ),
+				'simmer_license'
 			);
 			
 		}
@@ -323,8 +330,6 @@ final class Simmer_Admin_Settings {
 		// Define the settings tabs.
 		$tabs = array(
 			'display'  => __( 'Display',  Simmer::SLUG ),
-			#'license'  => __( 'License',  Simmer::SLUG ),
-			'advanced' => __( 'Advanced', Simmer::SLUG ),
 		);
 		
 		/**
@@ -335,6 +340,10 @@ final class Simmer_Admin_Settings {
 		 * @param array $tabs The default settings page tabs.
 		 */
 		$tabs = apply_filters( 'simmer_settings_tabs', $tabs );
+		
+		// Append the Licenses tab to the end.
+		$tabs['advanced'] = __( 'Advanced',  Simmer::SLUG );
+		$tabs['license'] = __( 'Licenses',  Simmer::SLUG );
 		
 		// Get current tab.
 		$current_tab = empty( $_GET['tab'] ) ? 'display' : sanitize_title( $_GET['tab'] );
@@ -583,6 +592,22 @@ final class Simmer_Admin_Settings {
 	}
 	
 	/**
+	 * Display the "license" section markup.
+	 * 
+	 * @since 1.0.0
+	 * 
+	 * @return void
+	 */
+	public function license_section_callback() {
+		
+		/**
+		 * Include the markup.
+		 */
+		include_once( 'html/settings/license-section.php' );
+		
+	}
+	
+	/**
 	 * Display the "license key" setting markup.
 	 * 
 	 * @since 1.0.0
@@ -641,32 +666,23 @@ final class Simmer_Admin_Settings {
 	}
 	
 	/**
-	 * Display the "deactivate license" setting markup.
+	 * Display the "extensions license" section markup.
 	 * 
 	 * @since 1.0.0
 	 * 
 	 * @return void
 	 */
-	public function license_deactivate_callback() {
+	public function license_extensions_section_callback() {
 		
-		/**
-		 * Allow others to add to this field.
-		 * 
-		 * @since 1.0.0
-		 */
-		do_action( 'simmer_before_license_deactivate_settings_field' );
+		do_action( 'simmer_before_license_extensions_section' );
 		
 		/**
 		 * Include the markup.
 		 */
-		include_once( 'html/settings/license-deactivate.php' );
+		include_once( 'html/settings/license-extensions-section.php' );
 		
-		/**
-		 * Allow others to add to this field.
-		 * 
-		 * @since 1.0.0
-		 */
-		do_action( 'simmer_after_license_deactivate_settings_field' );
+		do_action( 'simmer_after_license_extensions_section' );
+		
 	}
 	
 	/**
@@ -772,150 +788,71 @@ final class Simmer_Admin_Settings {
 	 */
 	public function validate_license_input( $input ) {
 		
-		$license_manager = new Simmer_License_Manager();
+		$license = new Simmer_License();
 		
-		$current_license = get_option( 'simmer_license' );
+		$existing_license  = $license->license;
 		
-		$current_key   = ( isset( $current_license['key'] ) ) ? trim( $current_license['key'] ) : false;
-		$current_email = ( isset( $current_license['email'] ) && is_email( $current_license['email'] ) ) ? trim( $current_license['email'] ) : false;
+		$existing_key      = ( isset( $existing_license['key'] ) )   ? trim( $existing_license['key'] )   : '';
+		$existing_email    = ( isset( $existing_license['email'] ) ) ? trim( $existing_license['email'] ) : '';
 		
-		if ( isset( $input['deactivate'] ) && 1 == $input['deactivate'] ) {
+		if ( isset( $input['deactivate'] ) && '1' == $input['deactivate'] ) {
 			
-			$license_manager->deactivate( array(
-				'licence_key' => $current_key,
-				'email'       => $current_email,
-				'instance'    => $current_license['instance'],
+			$result = $license->deactivate( array(
+				'licence_key' => $existing_key,
+				'email'       => $existing_email,
 			) );
 			
 			add_settings_error( 'simmer_license', 'simmer-deactivated', __( 'License deactivated.', Simmer::SLUG ), 'error' );
 			
 			return false;
 			
+		} else if ( $license->exists() ) {
+			
+			return $existing_license;
+			
 		} else {
 			
-			$new_license = $input;
+			$new_key   = ( isset( $input['key'] ) )   ? trim( $input['key'] )   : '';
+			$new_email = ( isset( $input['email'] ) ) ? trim( $input['email'] ) : '';
 			
-			$new_key   = ( isset( $new_license['key'] ) ) ? trim( $new_license['key'] ) : false;
-			$new_email = ( isset( $new_license['email'] ) && is_email( $new_license['email'] ) ) ? trim( $new_license['email'] ) : false;
-			
-			$license = array();
-			
-			if ( isset( $current_license['instance'] ) ) {
-				$license['instance'] = $current_license['instance'];
-			} else {
-				$license['instance'] = wp_generate_password( 12, false );
+			if ( ! $new_key && ! $new_email ) {
+				return false;
 			}
 			
-			if ( $current_key && ( $new_key != $current_key ) ) {
-				
-				$license_manager->deactivate( array(
-					'licence_key' => $current_key,
-					'email'       => $current_email,
-					'instance'    => $license['instance'],
-				) );
-				
-			}
-			
-			$results = $license_manager->activate( array(
+			$result = $license->activate( array(
 				'licence_key' => $new_key,
 				'email'       => $new_email,
-				'instance'    => $license['instance'],
 			) );
 			
-			$results = json_decode( $results, true );
+			$new_license          = array();
+			$new_license['key']   = $new_key;
+			$new_license['email'] = $new_email;
 			
-			if ( false == $results ) {
-				
-				add_settings_error( 'api_key_check_text', 'api_key_check_error', __( 'Connection failed to the License Key API server. Try again later.', Simmer::SLUG ), 'error' );
-				
-				$license['key']   = '';
-				$license['email'] = '';
-				
-				return $license;
-			}
-			
-			if ( isset( $results['activated'] ) && 1 == $results['activated'] ) {
-				
-				$license['key']   = $new_key;
-				$license['email'] = $new_email;
+			if ( isset( $result['activated'] ) && 1 == $result['activated'] ) {
 				
 				add_settings_error( 'simmer_license', 'simmer-activated', __( 'License activated.', Simmer::SLUG ), 'updated' );
 				
-				return $license;
+				return $new_license;
 				
-			} else if ( isset( $results['code'] ) ) {
-		
-				switch ( $results['code'] ) {
-					
-					case '100':
-						
-						add_settings_error( 'api_email_text', 'api_email_error', "{$results['error']}. {$results['additional info']}", 'error' );
-						
-						$license['key']   = '';
-						$license['email'] = '';
-						
-					break;
-					
-					case '101':
-						
-						add_settings_error( 'api_key_text', 'api_key_error', "{$results['error']}. {$results['additional info']}", 'error' );
-						
-						$license['key']   = '';
-						$license['email'] = '';
-						
-					break;
-					
-					case '102':
-						
-						add_settings_error( 'api_key_purchase_incomplete_text', 'api_key_purchase_incomplete_error', "{$results['error']}. {$results['additional info']}", 'error' );
-						
-						$license['key']   = '';
-						$license['email'] = '';
-						
-					break;
-					
-					case '103':
-						
-						add_settings_error( 'api_key_exceeded_text', 'api_key_exceeded_error', "{$results['error']}. {$results['additional info']}", 'error' );
-						
-						$license['key']   = '';
-						$license['email'] = '';
-						
-					break;
-					
-					case '104':
-						
-						add_settings_error( 'api_key_not_activated_text', 'api_key_not_activated_error', "{$results['error']}. {$results['additional info']}", 'error' );
-						
-						$license['key']   = '';
-						$license['email'] = '';
-						
-					break;
-					
-					case '105':
-						
-						add_settings_error( 'api_key_invalid_text', 'api_key_invalid_error', "{$results['error']}", 'error' );
-						
-						$license['key']   = '';
-						$license['email'] = '';
-						
-					break;
-					
-					case '106':
-						
-						add_settings_error( 'sub_not_active_text', 'sub_not_active_error', "{$results['error']}. {$results['additional info']}", 'error' );
-						
-						$license['key']   = '';
-						$license['email'] = '';
-						
-					break;
-				}
-		
 			}
 			
-			return $license;
+			if ( false == $result ) {
+				
+				add_settings_error( 'simmer_license', 'simmer-error', __( 'Could not connect to the Simmer API. Please try again later.', Simmer::SLUG ), 'error' );
+				
+				return false;
+				
+			} else if ( isset( $result['code'] ) ) {
+		
+				add_settings_error( 'simmer_license', 'simmer-error', $result['error'] . '. ' . $result['additional_info'], 'error' );
+				
+				return false;
+				
+			}
 			
 		}
+		
+		return $existing_license;
 	}
 }
 
