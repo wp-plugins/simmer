@@ -78,6 +78,9 @@ jQuery( document ).ready( function( $ ) {
 		
 		clone.insertAfter( row );
 		
+		// Auto-focus on first input after the row is added.
+		clone.find( 'td input:first, td textarea:first' ).focus();
+		
 	} );
 	
 	$( 'body' ).on( 'click', '.simmer-remove-row', function( e ) {

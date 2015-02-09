@@ -158,12 +158,12 @@ final class Simmer_Admin {
 	 *
 	 * @return void
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts( $hook ) {
 		
 		wp_enqueue_style( 'simmer-admin-styles', plugin_dir_url( __FILE__ ) . 'assets/admin.css', array( 'dashicons' ), Simmer::VERSION );
 		
 		// Only enqueue the script when dealing with our main object type (recipe).
-		if ( get_post_type() == simmer_get_object_type() ) {
+		if ( ( 'post.php' == $hook || 'post-new.php' == $hook ) && get_post_type() == simmer_get_object_type() ) {
 			
 			wp_enqueue_script( 'simmer-admin-scripts', plugin_dir_url( __FILE__ ) . 'assets/admin.js', array( 'jquery' ), Simmer::VERSION, true );
 			
