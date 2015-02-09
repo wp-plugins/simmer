@@ -79,6 +79,7 @@
 #simmer_instructions .inside {
 	margin: 0;
 	padding: 0;
+	overflow-x: auto;
 }
 
 .simmer-list-table {

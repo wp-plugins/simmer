@@ -11,7 +11,7 @@
  * Plugin Name: Simmer
  * Plugin URI:  http://simmerwp.com
  * Description: A recipe plugin for WordPress.
- * Version:     1.0.2
+ * Version:     1.0.3
  * Author:      BWD inc.
  * Author URI:  http://gobwd.com
  * License:     GPL-2.0+
@@ -24,6 +24,16 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+/** Constants **/
+
+/**
+ * The base plugin file path (this file).
+ *
+ * @since 1.0.3
+ * @var string SIMMER_PLUGIN_FILE The base plugin file path.
+ */
+define( 'SIMMER_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 
 /**
  * Load the main activation class definition.
@@ -56,5 +66,11 @@ if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 	
 	// After all other plugins are loaded, instantiate the Simmer admin.
 	add_action( 'plugins_loaded', array( 'Simmer_Admin', 'get_instance' ) );
-
+	
+	/**
+	 * Require the plugins list table row customizing class.
+	 */
+	require_once( plugin_dir_path( __FILE__ ) . 'includes/admin/settings/class-simmer-plugins-list-table-row.php' );
+	
+	add_action( 'admin_init', array( 'Simmer_Plugins_List_Table_Row', 'get_instance' ) );
 }
