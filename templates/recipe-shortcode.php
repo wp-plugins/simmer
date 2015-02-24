@@ -1,6 +1,18 @@
+<?php
+/**
+ * Display the recipe when called by a shortcode
+ * 
+ * @since 1.1.0
+ * 
+ * @package Simmer/Shortcode
+ */
+?>
+
 <div class="simmer-recipe" itemscope itemtype="http://schema.org/Recipe">
 	
-	<h1 class="simmer-recipe-title" itemprop="name"><?php echo esc_html( get_the_title() ); ?></h1>
+	<h1 class="simmer-recipe-title" itemprop="name">
+		<a href="<?php the_permalink(); ?>"><?php echo esc_html( get_the_title() ); ?></a>
+	</h1>
 	
 	<div class="simmer-recipe-meta">
 		
@@ -14,6 +26,8 @@
 				get_the_date()
 			); ?>
 		</p>
+		
+		<p class="simmer-recipe-description" itemprop="description"><?php echo get_the_excerpt(); ?></p>
 		
 	</div><!-- .simmer-recipe-date -->
 	

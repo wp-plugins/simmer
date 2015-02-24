@@ -15,7 +15,8 @@
 	<thead>
 		<tr>
 			<th class="simmer-sort">
-				<div class="dashicons dashicons-sort"></div>
+				<span class="hide-if-js">Order</span>
+				<div class="dashicons dashicons-sort hide-if-no-js"></div>
 			</th>
 			<th><?php _e( 'Amount', Simmer::SLUG ); ?></th>
 			<th><?php _e( 'Unit', Simmer::SLUG ); ?></th>
@@ -31,34 +32,31 @@
 		
 		<?php if ( ! empty( $ingredients ) ) : ?>
 			
-			<?php $count = 0; ?>
-			
-			<?php foreach ( $ingredients as $ingredient ) : ?>
+			<?php foreach ( $ingredients as $order => $ingredient ) : ?>
 				
 				<tr class="simmer-ingredient simmer-row">
 							
 					<td class="simmer-sort">
-						<span class="simmer-sort-handle dashicons dashicons-menu"></span>
+						<input class="hide-if-js" style="width:100%;" type="text" name="simmer_ingredients[<?php echo $order; ?>][order]" value="<?php echo $order; ?>" />
+						<span class="simmer-sort-handle dashicons dashicons-menu hide-if-no-js"></span>
 					</td>
 					<td class="simmer-amt">
-						<input type="text" style="width:100%;" name="simmer_ingredients[<?php echo $count; ?>][amt]" value="<?php echo esc_html( $ingredient->amount ); ?>" placeholder="2" />
+						<input type="text" style="width:100%;" name="simmer_ingredients[<?php echo $order; ?>][amt]" value="<?php echo esc_html( $ingredient->amount ); ?>" placeholder="2" />
 					</td>
 					<td class="simmer-unit">
 						<?php simmer_units_select_field( array(
-							'name'     => 'simmer_ingredients[' . $count . '][unit]',
+							'name'     => 'simmer_ingredients[' . $order . '][unit]',
 							'selected' => $ingredient->unit,
 						), $ingredient->convert_amount_to_float( $ingredient->amount ) ); ?>
 					</td>
 					<td class="simmer-desc">
-						<input type="text" style="width:100%;" name="simmer_ingredients[<?php echo $count; ?>][desc]" value="<?php echo esc_html( $ingredient->description ); ?>" placeholder="onions, diced" />
+						<input type="text" style="width:100%;" name="simmer_ingredients[<?php echo $order; ?>][desc]" value="<?php echo esc_html( $ingredient->description ); ?>" placeholder="onions, diced" />
 					</td>
 					<td class="simmer-remove">
 						<a href="#" class="simmer-remove-row dashicons dashicons-no" data-type="ingredient" title="Remove"></a>
 					</td>
 					
 				</tr>
-				
-				<?php $count++; ?>
 				
 			<?php endforeach; ?>
 			
@@ -67,7 +65,8 @@
 			<tr class="simmer-ingredient simmer-row">
 						
 				<td class="simmer-sort">
-					<span class="simmer-sort-handle dashicons dashicons-menu"></span>
+					<input class="hide-if-js" style="width:100%;" type="text" name="simmer_ingredients[0][order]" value="0" />
+					<span class="simmer-sort-handle dashicons dashicons-menu hide-if-no-js"></span>
 				</td>
 				<td class="simmer-amt">
 					<input type="text" style="width:100%;" name="simmer_ingredients[0][amt]" value="" placeholder="2" />

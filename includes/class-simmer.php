@@ -25,7 +25,7 @@ final class Simmer {
 	 * @since 1.0.0
 	 * @var string The plugin version.
 	 */
-	const VERSION = '1.0.3';
+	const VERSION = '1.1.0';
 	
 	/**
 	 * The plugin slug.
@@ -158,6 +158,11 @@ final class Simmer {
 		 * The shortcode functions.
 		 */
 		require( plugin_dir_path( __FILE__ ) . 'class-simmer-recipe-shortcode.php' );
+		
+		/**
+		 * The deprecated functions.
+		 */
+		require( plugin_dir_path( __FILE__ ) . 'deprecated.php' );
 	}
 	
 	/**
@@ -345,7 +350,7 @@ final class Simmer {
 	
 	public function append_recipe( $content ) {
 		
-		if ( get_post_type() != simmer_get_object_type() ) {
+		if ( ! is_singular( simmer_get_object_type() ) ) {
 			return $content;
 		}
 		

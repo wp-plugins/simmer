@@ -73,7 +73,7 @@ function simmer_get_instructions_list_heading() {
  */
 function simmer_get_instructions_list_type() {
 	
-	$type = get_option( 'simmer_instructions_list_type', 'ul' );
+	$type = get_option( 'simmer_instructions_list_type', 'ol' );
 	
 	/**
 	 * Allow others to filter the instructions list type.

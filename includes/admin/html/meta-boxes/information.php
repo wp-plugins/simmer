@@ -39,23 +39,23 @@ if ( $total_time ) {
 
 <p>
 	<label for="simmer_prep"><?php _e( 'Prep Time', Simmer::SLUG ); ?>:</label><br />
-	<input class="simmer-time" name="simmer_times[prep][h]" type="number" min="0" value="<?php echo esc_html( $prep_h ); ?>" />
+	<input class="simmer-time" name="simmer_times[prep][h]" type="number" min="0" value="<?php echo esc_html( $prep_h ); ?>" placeholder="hh" />
 	:
-	<input class="simmer-time" name="simmer_times[prep][m]" type="number" min="0" value="<?php echo esc_html( $prep_m ); ?>" />
+	<input class="simmer-time" name="simmer_times[prep][m]" type="number" min="0" value="<?php echo esc_html( $prep_m ); ?>" placeholder="mm" />
 </p>
 
 <p>
 	<label for="simmer_cook"><?php _e( 'Cook Time', Simmer::SLUG ); ?>:</label><br />
-	<input class="simmer-time" name="simmer_times[cook][h]" type="number" min="0" value="<?php echo esc_html( $cook_h ); ?>" />
+	<input class="simmer-time" name="simmer_times[cook][h]" type="number" min="0" value="<?php echo esc_html( $cook_h ); ?>" placeholder="hh" />
 	:
-	<input class="simmer-time" name="simmer_times[cook][m]" type="number" min="0" value="<?php echo esc_html( $cook_m ); ?>" />
+	<input class="simmer-time" name="simmer_times[cook][m]" type="number" min="0" value="<?php echo esc_html( $cook_m ); ?>" placeholder="mm" />
 </p>
 
 <p>
 	<label for="simmer_total"><?php _e( 'Total Time', Simmer::SLUG ); ?>:</label><br />
-	<input class="simmer-time" name="simmer_times[total][h]" type="number" min="0" value="<?php echo esc_html( $total_h ); ?>" />
+	<input class="simmer-time" name="simmer_times[total][h]" type="number" min="0" value="<?php echo esc_html( $total_h ); ?>" placeholder="hh" />
 	:
-	<input class="simmer-time" name="simmer_times[total][m]" type="number" min="0" value="<?php echo esc_html( $total_m ); ?>" />
+	<input class="simmer-time" name="simmer_times[total][m]" type="number" min="0" value="<?php echo esc_html( $total_m ); ?>" placeholder="mm" />
 </p>
 
 <p>
@@ -68,11 +68,24 @@ if ( $total_time ) {
 	<input type="text" name="simmer_yield" value="<?php echo esc_html( get_post_meta( $recipe->ID, '_recipe_yield', true ) ); ?>" placeholder="24 cookies" />
 </p>
 
-<?php $attribution_text = get_post_meta( $recipe->ID, '_recipe_attribution_text', true ); ?>
-<?php $attribution_url  = get_post_meta( $recipe->ID, '_recipe_attribution_url',  true ); ?>
+<?php $source_text = get_post_meta( $recipe->ID, '_recipe_source_text', true ); ?>
+<?php $source_url  = get_post_meta( $recipe->ID, '_recipe_source_url',  true ); ?>
+
+<?php // Update the deprecated meta key.
+if ( ! $source_text && ( $source_text = get_post_meta( $recipe->ID, '_recipe_attribution_text', true ) ) ) {
+	update_post_meta( $recipe->ID, '_recipe_source_text', $source_text );
+	delete_post_meta( $recipe->ID, '_recipe_attribution_text' );
+} ?>
+
+<?php // Update the deprecated meta key.
+if ( ! $source_url && ( $source_url = get_post_meta( $recipe->ID, '_recipe_attribution_url', true ) ) ) {
+	update_post_meta( $recipe->ID, '_recipe_source_url', $source_url );
+	delete_post_meta( $recipe->ID, '_recipe_attribution_url' );
+} ?>
+
 <p>
-	<label for="simmer_attribution_text"><?php _e( 'Attribution', Simmer::SLUG ); ?>:</label><br />
-	<input id="simmer_attribution_text" name="simmer_attribution_text" type="text" value="<?php echo esc_html( $attribution_text ); ?>" placeholder="Inspired by..." /><br />
-	<label for="simmer_attribution_url"><?php _e( 'Attribution URL', Simmer::SLUG ); ?>:</label><br />
-	<input id="simmer_attribution_url" name="simmer_attribution_url" type="text" value="<?php echo esc_url( $attribution_url ); ?>" placeholder="http://somesource.com" />
+	<label for="simmer_source_text"><?php _e( 'Source', Simmer::SLUG ); ?>:</label><br />
+	<input id="simmer_source_text" name="simmer_source_text" type="text" value="<?php echo esc_html( $source_text ); ?>" placeholder="Source name" /><br />
+	<label for="simmer_source_url"><?php _e( 'Source URL', Simmer::SLUG ); ?>:</label><br />
+	<input id="simmer_source_url" name="simmer_source_url" type="text" value="<?php echo esc_url( $source_url ); ?>" placeholder="http://somesource.com" />
 </p>

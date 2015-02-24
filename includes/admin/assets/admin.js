@@ -8,8 +8,10 @@ jQuery( document ).ready( function( $ ) {
 		axis:'y',
 		handle: '.simmer-sort-handle',
 		placeholder: 'simmer-sort-placeholder',
-		scrollSensitivity: 40,
-
+		containment: 'parent',
+		tolerance: 'pointer',
+		revert: 70,
+		scroll: false,
 		helper: function( e,ui ) {
 
 			ui.children().each( function() {
@@ -37,11 +39,13 @@ jQuery( document ).ready( function( $ ) {
 		        	
 		        	var name = $( this ).attr( 'name' );
 		        	
-		        	name = name.replace( /\[(\d+)\]/, '[' + rowIndex+ ']');
+		        	name = name.replace( /\[(\d+)\]/, '[' + rowIndex + ']');
 		        	
 		        	$( this ).attr( 'name', name ).attr( 'id', name );
 		        	
 		    	} );
+		    	
+		    	$( this ).find( '.simmer-sort input' ).attr( 'value', rowIndex );
 		    	
 		    } );
 
@@ -76,10 +80,12 @@ jQuery( document ).ready( function( $ ) {
 			
 		} );
 		
+		clone.find( '.simmer-sort input' ).attr( 'value', parseInt( count ) );
+		
 		clone.insertAfter( row );
 		
 		// Auto-focus on first input after the row is added.
-		clone.find( 'td input:first, td textarea:first' ).focus();
+		clone.find( 'td input:not(.hide-if-js):first, td textarea:first' ).focus();
 		
 	} );
 	
@@ -107,6 +113,20 @@ jQuery( document ).ready( function( $ ) {
 			}
 			
 		} else {
+			
+			
+			// Target the next row.
+			var nextRow = $( row ).next()
+			
+			// If not, target the previous row.
+			if ( ! nextRow.length ) {
+				var nextRow = $( row ).prev();
+			}
+			
+			// Focus on the next/previous row on removal.
+			if ( nextRow.length ) {
+				$( nextRow ).find( 'input:not(.hide-if-js):first, textarea:first' ).focus();
+			}
 			
 			if ( '' == $( 'input, select, textarea', row ).val() ) {
 				$( row ).remove();
