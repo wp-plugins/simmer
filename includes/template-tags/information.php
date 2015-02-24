@@ -105,35 +105,36 @@ function simmer_get_the_yield( $recipe_id = null ) {
 }
 
 /**
- * Print the current recipe's attribution.
+ * Print the current recipe's source information.
  *
- * @since 1.0.0
- * @see simmer_get_the_attribution()
+ * @since 1.1.0
+ * @see simmer_get_the_source()
  * 
  * @return void
  */
-function simmer_the_attribution() {
+function simmer_the_source() {
 	
-	echo simmer_get_the_attribution();
+	echo simmer_get_the_source();
 }
 
 /**
- * Get a recipe's attribution.
+ * Get a recipe's source information.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * 
- * @param  int    $recipe_id   Optional. A recipe's ID. Defaults to current.
- * @param  bool   $anchor      Optional. Whether to wrap the attribution in an anchor.
- * @return string $attribution The recipe's attribution.
+ * @param  int    $recipe_id Optional. A recipe's ID. Defaults to current.
+ * @param  string $label     Optional. A label to place before the source info.
+ * @param  bool   $anchor    Optional. Whether to wrap the source in an anchor.
+ * @return string $source    The recipe's source.
  */
-function simmer_get_the_attribution( $recipe_id = null, $anchor = true ) {
+function simmer_get_the_source( $recipe_id = null, $label = null, $anchor = true ) {
 	
 	if ( ! is_numeric( $recipe_id ) ) {
 		$recipe_id = get_the_ID();
 	}
 	
-	$text = simmer_get_attribution_text( $recipe_id );
-	$url  = simmer_get_attribution_url(  $recipe_id );
+	$text = simmer_get_source_text( $recipe_id );
+	$url  = simmer_get_source_url(  $recipe_id );
 	
 	// If no text is set, use the URL.
 	if ( ! $text ) {
@@ -146,23 +147,44 @@ function simmer_get_the_attribution( $recipe_id = null, $anchor = true ) {
 		}
 	}
 	
-	$attribution = $text;
+	$source = $text;
 	
 	if ( $anchor && $url ) {
-		$attribution = '<a class="simmer-recipe-attribution-link" href="' . esc_url( $url ) . '" target="_blank">';
-			$attribution .= esc_html( $text );
-		$attribution .= '</a>';
+		$source = '<a class="simmer-recipe-source-link" href="' . esc_url( $url ) . '" target="_blank">';
+			$source .= esc_html( $text );
+		$source .= '</a>';
 	}
 	
 	/**
-	 * Filter the attribution.
+	 * Filter the source anchor.
 	 * 
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 * 
-	 * @param string|bool $attribution The attribution.
-	 * @param int         $recipe_id   The recipe's ID.
+	 * @param string|bool $source    The source.
+	 * @param int         $recipe_id The recipe's ID.
 	 */
-	$attribution = apply_filters( 'simmer_get_the_attribution', $attribution, $recipe_id );
+	$source = apply_filters( 'simmer_get_the_source', $source, $recipe_id );
 	
-	return $attribution;
+	// If no label is specifically set via this function, add the default.
+	if ( is_null( $label ) ) {
+		
+		$label = __( 'Source: ', Simmer::SLUG );
+		
+		/**
+		 * Filter the source label text.
+		 * 
+		 * @since 1.1.0
+		 * 
+		 * @param string $label     The label text.
+		 * @param int    $recipe_id The recipe's ID.
+		 */
+		$label = apply_filters( 'simmer_source_label', $label, $recipe_id );
+	}
+	
+	// Append the label text.
+	if ( $label ) {
+		$source = $label . $source;
+	}
+	
+	return $source;
 }

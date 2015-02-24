@@ -17,7 +17,8 @@ $instructions = get_post_meta( $recipe->ID, '_recipe_instructions', true ); ?>
 	<thead>
 		<tr>
 			<th class="simmer-sort">
-				<div class="dashicons dashicons-sort"></div>
+				<span class="hide-if-js">Order</span>
+				<div class="dashicons dashicons-sort hide-if-no-js"></div>
 			</th>
 			<th><?php _e( 'Description', Simmer::SLUG ); ?></th>
 			<th></th>
@@ -28,7 +29,8 @@ $instructions = get_post_meta( $recipe->ID, '_recipe_instructions', true ); ?>
 		
 		<tr class="simmer-heading simmer-row-hidden simmer-row">
 			<td class="simmer-sort">
-				<span class="simmer-sort-handle dashicons dashicons-menu"></span>
+				<input class="hide-if-js" style="width:100%;" type="text" name="simmer_instructions[0][order]" value="0" />
+				<span class="simmer-sort-handle dashicons dashicons-menu hide-if-no-js"></span>
 			</td>
 			<td class="simmer-desc">
 				<input type="text" name="simmer_instructions[0][desc]" value="" /> <span class="simmer-heading-label"><?php _e( 'Heading', Simmer::SLUG ); ?></span>
@@ -39,21 +41,20 @@ $instructions = get_post_meta( $recipe->ID, '_recipe_instructions', true ); ?>
 			</td>
 		</tr>
 		
-		<?php $count = 0;
-		
-		if ( ! empty( $instructions ) ) :
+		<?php if ( ! empty( $instructions ) ) :
 			
-			foreach ( $instructions as $instruction ) :
+			foreach ( $instructions as $order => $instruction ) :
 				
 				if ( isset( $instruction['heading'] ) && 1 === $instruction['heading'] ) : ?>
 					
 					<tr class="simmer-heading simmer-row">
 						<td class="simmer-sort">
-							<span class="simmer-sort-handle dashicons dashicons-menu"></span>
+							<input class="hide-if-js" style="width:100%;" type="text" name="simmer_instructions[<?php echo $order; ?>][order]" value="<?php echo $order; ?>" />
+							<span class="simmer-sort-handle dashicons dashicons-menu hide-if-no-js"></span>
 						</td>
 						<td class="simmer-desc">
-							<input type="text" name="simmer_instructions[<?php echo $count; ?>][desc]" value="<?php echo $instruction['desc']; ?>" /> <span class="simmer-heading-label"><?php _e( 'Heading', Simmer::SLUG ); ?></span>
-							<input class="simmer-heading-input" type="hidden" name="simmer_instructions[<?php echo $count; ?>][heading]" value="true" />
+							<input type="text" name="simmer_instructions[<?php echo $order; ?>][desc]" value="<?php echo $instruction['desc']; ?>" /> <span class="simmer-heading-label"><?php _e( 'Heading', Simmer::SLUG ); ?></span>
+							<input class="simmer-heading-input" type="hidden" name="simmer_instructions[<?php echo $order; ?>][heading]" value="true" />
 						</td>
 						<td class="simmer-remove">
 							<a href="#" class="simmer-remove-row dashicons dashicons-no" data-type="heading" title="Remove"></a>
@@ -65,11 +66,12 @@ $instructions = get_post_meta( $recipe->ID, '_recipe_instructions', true ); ?>
 					<tr class="simmer-instruction simmer-row">
 								
 						<td class="simmer-sort">
-							<span class="simmer-sort-handle dashicons dashicons-menu"></span>
+							<input class="hide-if-js" style="width:100%;" type="text" name="simmer_instructions[<?php echo $order; ?>][order]" value="<?php echo $order; ?>" />
+							<span class="simmer-sort-handle dashicons dashicons-menu hide-if-no-js"></span>
 						</td>
 						<td class="simmer-desc">
-							<textarea style="width:100%;" name="simmer_instructions[<?php echo $count; ?>][desc]" placeholder="Preheat oven to 450 degrees. In a large bowl, mix stuff."><?php echo $instruction['desc']; ?></textarea>
-							<input type="hidden" name="simmer_instructions[<?php echo $count; ?>][heading]" value="false" />
+							<textarea style="width:100%;" name="simmer_instructions[<?php echo $order; ?>][desc]" placeholder="Preheat oven to 450 degrees. In a large bowl, mix stuff."><?php echo $instruction['desc']; ?></textarea>
+							<input type="hidden" name="simmer_instructions[<?php echo $order; ?>][heading]" value="false" />
 						</td>
 						<td class="simmer-remove">
 							<a href="#" class="simmer-remove-row dashicons dashicons-no" data-type="instruction" title="Remove"></a>
@@ -88,7 +90,8 @@ $instructions = get_post_meta( $recipe->ID, '_recipe_instructions', true ); ?>
 			<tr class="simmer-instruction simmer-row">
 				
 				<td class="simmer-sort">
-					<span class="simmer-sort-handle dashicons dashicons-menu"></span>
+					<input class="hide-if-js" style="width:100%;" type="text" name="simmer_instructions[0][order]" value="0" />
+					<span class="simmer-sort-handle dashicons dashicons-menu hide-if-no-js"></span>
 				</td>
 				<td class="simmer-desc">
 					<textarea style="width:100%;" name="simmer_instructions[0][desc]" placeholder="Preheat oven to 450 degrees. In a large bowl, mix stuff."></textarea>

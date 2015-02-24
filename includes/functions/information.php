@@ -13,51 +13,61 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Get a recipe's attribution text.
+ * Get a recipe's source text.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * 
  * @param  int    $recipe_id A recipe's ID.
- * @return string $text      The recipe's attribution text.
+ * @return string $text      The recipe's source text.
  */
-function simmer_get_attribution_text( $recipe_id ) {
+function simmer_get_source_text( $recipe_id ) {
 	
-	$text = get_post_meta( $recipe_id, '_recipe_attribution_text', true );
+	$text = get_post_meta( $recipe_id, '_recipe_source_text', true );
+	
+	// For back compat, check for the old "attribution" key.
+	if ( ! $text ) {
+		$text = get_post_meta( $recipe_id, '_recipe_attribution_text', true );
+	}
 	
 	/**
-	 * Filter the returned attribution text.
+	 * Filter the returned source text.
 	 * 
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 * 
-	 * @param string $url       The returned attribution text or '' on failure.
+	 * @param string $url       The returned source text or '' on failure.
 	 * @param int    $recipe_id The recipe's ID.
 	 */
-	$text = apply_filters( 'simmer_get_attribution_text', $text, $recipe_id );
+	$text = apply_filters( 'simmer_get_source_text', $text, $recipe_id );
 	
 	return $text;
 }
 
 /**
- * Get a recipe's attribution URL.
+ * Get a recipe's source URL.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * 
  * @param  int    $recipe_id A recipe's ID.
- * @return string $url       The recipe's attribution URL.
+ * @return string $url       The recipe's source URL.
  */
-function simmer_get_attribution_url( $recipe_id ) {
+function simmer_get_source_url( $recipe_id ) {
 	
-	$url = get_post_meta( $recipe_id, '_recipe_attribution_url', true );
+	$url = get_post_meta( $recipe_id, '_recipe_source_url', true );
+	
+	// For back compat, check for the old "attribution" key.
+	if ( ! $url ) {
+		$url = get_post_meta( $recipe_id, '_recipe_attribution_url', true );
+	}
 	
 	/**
-	 * Filter the returned attribution URL.
+	 * Filter the returned source URL.
 	 * 
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 * 
-	 * @param string $url       The returned attribution URL or '' on failure.
+	 * @param string $url       The returned source URL or '' on failure.
 	 * @param int    $recipe_id The recipe's ID.
 	 */
-	$url = apply_filters( 'simmer_get_attribution_url', $url, $recipe_id );
+	$url = apply_filters( 'simmer_get_source_url', $url, $recipe_id );
 	
 	return $url;
 }
