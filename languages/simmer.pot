@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Simmer package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Simmer 1.0.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/simmer\n"
-"POT-Creation-Date: 2015-01-09 16:57:50+00:00\n"
+"Project-Id-Version: Simmer 1.1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/simmer\n"
+"POT-Creation-Date: 2015-02-24 19:00:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,41 +28,41 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-recipes.php:377
+#: includes/admin/class-simmer-admin-recipes.php:407
 msgid "Recipe updated. <a href=\"%s\">View recipe</a>"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-recipes.php:380
+#: includes/admin/class-simmer-admin-recipes.php:410
 msgid "Recipe updated."
 msgstr ""
 
-#: includes/admin/class-simmer-admin-recipes.php:382
+#: includes/admin/class-simmer-admin-recipes.php:412
 msgid "Recipe restored to revision from %s"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-recipes.php:386
+#: includes/admin/class-simmer-admin-recipes.php:416
 msgid "Recipe created. <a href=\"%s\">View recipe</a>"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-recipes.php:389
+#: includes/admin/class-simmer-admin-recipes.php:419
 msgid "Recipe saved."
 msgstr ""
 
-#: includes/admin/class-simmer-admin-recipes.php:391
+#: includes/admin/class-simmer-admin-recipes.php:421
 msgid "Recipe submitted. <a target=\"_blank\" href=\"%s\">Preview recipe</a>"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-recipes.php:395
+#: includes/admin/class-simmer-admin-recipes.php:425
 msgid ""
 "Recipe scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">Preview recipe</a>"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-recipes.php:396
+#: includes/admin/class-simmer-admin-recipes.php:426
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-recipes.php:401
+#: includes/admin/class-simmer-admin-recipes.php:431
 msgid ""
 "Recipe draft updated. <a target=\"_blank\" href=\"%s\">Preview recipe</a>"
 msgstr ""
@@ -111,64 +111,67 @@ msgid "Text Color"
 msgstr ""
 
 #: includes/admin/class-simmer-admin-settings.php:181
-msgid "License Information"
+msgid "Simmer License"
 msgstr ""
 
 #: includes/admin/class-simmer-admin-settings.php:191
 msgid "License Key"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:198
+#: includes/admin/class-simmer-admin-settings.php:203
 msgid "License Email"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:210
-#: includes/admin/html/settings/license-deactivate.php:13
-msgid "Deactivate"
+#: includes/admin/class-simmer-admin-settings.php:218
+msgid "Extension Licenses"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:225
+#: includes/admin/class-simmer-admin-settings.php:232
 msgid "Permalinks"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:238
+#: includes/admin/class-simmer-admin-settings.php:245
 msgid "Archive base"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:245
+#: includes/admin/class-simmer-admin-settings.php:252
 msgid "Single recipe base"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:252
+#: includes/admin/class-simmer-admin-settings.php:259
 msgid "Category base"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:261
+#: includes/admin/class-simmer-admin-settings.php:268
 msgid "Uninstall Settings"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:271
+#: includes/admin/class-simmer-admin-settings.php:278
 msgid "On Uninstall"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:325
+#: includes/admin/class-simmer-admin-settings.php:332
 msgid "Display"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:327
+#: includes/admin/class-simmer-admin-settings.php:345
 msgid "Advanced"
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:790
+#: includes/admin/class-simmer-admin-settings.php:346
+msgid "Licenses"
+msgstr ""
+
+#: includes/admin/class-simmer-admin-settings.php:805
 msgid "License deactivated."
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:829
-msgid "Connection failed to the License Key API server. Try again later."
+#: includes/admin/class-simmer-admin-settings.php:833
+msgid "License activated."
 msgstr ""
 
-#: includes/admin/class-simmer-admin-settings.php:842
-msgid "License activated."
+#: includes/admin/class-simmer-admin-settings.php:841
+msgid "Could not connect to the Simmer API. Please try again later."
 msgstr ""
 
 #: includes/admin/class-simmer-admin.php:81
@@ -200,46 +203,53 @@ msgid "Recipe Extensions"
 msgstr ""
 
 #: includes/admin/html/extend-page.php:27
-msgid "These extensions expand the functionality of Simmer."
+msgid ""
+"Extend your business to whatever length you desire with Simmer. Purchase "
+"just the extensions you need, and shop around to fit your business' goals."
 msgstr ""
 
-#: includes/admin/html/extend-page.php:40
+#: includes/admin/html/extend-page.php:42
 msgid "Recipe Connector"
 msgstr ""
 
-#: includes/admin/html/extend-page.php:43
-#: includes/admin/html/extend-page.php:87
+#: includes/admin/html/extend-page.php:45
+#: includes/admin/html/extend-page.php:91
 msgid "Get"
 msgstr ""
 
-#: includes/admin/html/extend-page.php:45
+#: includes/admin/html/extend-page.php:47
 msgid ""
-"Quickly &amp; easily connect recipes to the blog posts you've written about "
-"them."
+"Attach individual recipes to a single blog post to keep your recipe database "
+"clear and concise"
 msgstr ""
 
-#: includes/admin/html/extend-page.php:84
+#: includes/admin/html/extend-page.php:88
 msgid "Tinypass for Simmer"
 msgstr ""
 
-#: includes/admin/html/extend-page.php:89
+#: includes/admin/html/extend-page.php:93
 msgid ""
-"Integrate the Tinypass service with Simmer to easily monetizing your recipes."
+"Tinypass for Simmer is an extension that allows WordPress websites to "
+"connect the power of micro e-commerce to monetize your food, drink, or "
+"recipe content instantly with Simmer."
 msgstr ""
 
-#: includes/admin/html/extend-page.php:127
-msgid "Coming Soon to Simmer"
+#: includes/admin/html/extend-page.php:131
+msgid "Get the Most out of Simmer"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/information.php:41 templates/recipe.php:24
+#: includes/admin/html/meta-boxes/information.php:41
+#: templates/recipe-shortcode.php:40 templates/recipe.php:26
 msgid "Prep Time"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/information.php:48 templates/recipe.php:32
+#: includes/admin/html/meta-boxes/information.php:48
+#: templates/recipe-shortcode.php:48 templates/recipe.php:34
 msgid "Cook Time"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/information.php:55 templates/recipe.php:40
+#: includes/admin/html/meta-boxes/information.php:55
+#: templates/recipe-shortcode.php:56 templates/recipe.php:42
 msgid "Total Time"
 msgstr ""
 
@@ -251,45 +261,46 @@ msgstr ""
 msgid "3-4 people"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/information.php:67 templates/recipe.php:52
+#: includes/admin/html/meta-boxes/information.php:67
+#: templates/recipe-shortcode.php:68 templates/recipe.php:54
 msgid "Yield"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/information.php:74
-msgid "Attribution"
+#: includes/admin/html/meta-boxes/information.php:87
+msgid "Source"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/information.php:76
-msgid "Attribution URL"
-msgstr ""
-
-#: includes/admin/html/meta-boxes/ingredients.php:20
-msgid "Amount"
+#: includes/admin/html/meta-boxes/information.php:89
+msgid "Source URL"
 msgstr ""
 
 #: includes/admin/html/meta-boxes/ingredients.php:21
-msgid "Unit"
+msgid "Amount"
 msgstr ""
 
 #: includes/admin/html/meta-boxes/ingredients.php:22
-#: includes/admin/html/meta-boxes/instructions.php:22
+msgid "Unit"
+msgstr ""
+
+#: includes/admin/html/meta-boxes/ingredients.php:23
+#: includes/admin/html/meta-boxes/instructions.php:23
 msgid "Description"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/ingredients.php:98
+#: includes/admin/html/meta-boxes/ingredients.php:97
 msgid "Add an Ingredient"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/instructions.php:34
-#: includes/admin/html/meta-boxes/instructions.php:55
+#: includes/admin/html/meta-boxes/instructions.php:36
+#: includes/admin/html/meta-boxes/instructions.php:56
 msgid "Heading"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/instructions.php:112
+#: includes/admin/html/meta-boxes/instructions.php:115
 msgid "Add a Heading"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/instructions.php:116
+#: includes/admin/html/meta-boxes/instructions.php:119
 msgid "Add an Instruction"
 msgstr ""
 
@@ -347,13 +358,15 @@ msgstr ""
 msgid "The heading to be displayed before the list of instructions."
 msgstr ""
 
-#: includes/admin/html/settings/instructions-list-type.php:22
-#: includes/admin/html/settings/instructions-list-type.php:24
-msgid "Set of Paragraphs"
+#: includes/admin/html/settings/license-key.php:23
+msgid "Remove"
 msgstr ""
 
-#: includes/admin/html/settings/license-deactivate.php:17
-msgid "Deactivate this Simmer license."
+#: includes/admin/html/settings/license-section.php:12
+msgid ""
+"An active Simmer license is required to use %sSimmer extensions%s, get "
+"%sexpert support%s, and gain access to exclusive food & drink related "
+"content."
 msgstr ""
 
 #: includes/admin/html/settings/settings-page.php:21
@@ -370,6 +383,10 @@ msgstr ""
 
 #: includes/admin/html/settings/units-format.php:15
 msgid "full names (i.e. \"pounds\")"
+msgstr ""
+
+#: includes/admin/settings/class-simmer-plugins-list-table-row.php:90
+msgid "Settings"
 msgstr ""
 
 #: includes/class-simmer-recipe-shortcode.php:140
@@ -409,6 +426,22 @@ msgstr ""
 msgid "No recipes found in Trash"
 msgstr ""
 
+#: includes/deprecated.php:33
+msgid ""
+"%1$s is <strong>deprecated</strong> since Simmer version %2$s! Use %3$s "
+"instead."
+msgstr ""
+
+#: includes/deprecated.php:43
+msgid ""
+"%1$s is <strong>deprecated</strong> since Simmer version %2$s with no "
+"alternative available."
+msgstr ""
+
+#: includes/template-tags/information.php:171
+msgid "Source: "
+msgstr ""
+
 #: includes/template-tags/ingredients.php:133
 msgid "This recipe has no ingredients"
 msgstr ""
@@ -417,11 +450,56 @@ msgstr ""
 msgid "This recipe has no instructions"
 msgstr ""
 
-#: templates/recipe.php:11
+#: includes/widgets/class-simmer-categories-widget.php:36
+msgid "Recipe Categories"
+msgstr ""
+
+#: includes/widgets/class-simmer-categories-widget.php:39
+msgid "A list of recipe categories"
+msgstr ""
+
+#: includes/widgets/class-simmer-recent-recipes-widget.php:36
+msgid "Recent Recipes"
+msgstr ""
+
+#: includes/widgets/class-simmer-recent-recipes-widget.php:39
+msgid "Your site's most recent recipes"
+msgstr ""
+
+#: includes/widgets/html/categories-widget-form.php:12
+#: includes/widgets/html/recent-recipes-widget-form.php:12
+msgid "Title:"
+msgstr ""
+
+#: includes/widgets/html/categories-widget-form.php:18
+msgid "Show recipe counts"
+msgstr ""
+
+#: includes/widgets/html/categories-widget-form.php:21
+msgid "Show hierarchy"
+msgstr ""
+
+#: includes/widgets/html/recent-recipes-widget-form.php:17
+msgid "Number of recipes to show:"
+msgstr ""
+
+#: includes/widgets/html/recent-recipes-widget-form.php:23
+msgid "Display relative dates"
+msgstr ""
+
+#: includes/widgets/html/recent-recipes-widget.php:23
+msgid "%s ago"
+msgstr ""
+
+#: includes/widgets/html/recent-recipes-widget.php:35
+msgid "No recent recipes."
+msgstr ""
+
+#: templates/recipe-shortcode.php:24 templates/recipe.php:12
 msgid "Created by %1s on %2s"
 msgstr ""
 
-#: templates/recipe.php:46
+#: templates/recipe-shortcode.php:62 templates/recipe.php:48
 msgid "Serves"
 msgstr ""
 
