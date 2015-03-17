@@ -93,9 +93,18 @@
 	padding: 10px 6px;
 	border-bottom: 1px solid rgb( 238, 238, 238 );
 }
-.simmer-list-table th:first-child,
-.simmer-list-table td:first-child {
+.simmer-list-table th:first-child {
 	padding-left: 12px;
+}
+.simmer-list-table td:first-child {
+	padding-left: 8px;
+	border-left: 4px solid transparent;
+	-webkit-transition: border 5s;
+	   -moz-transition: border 5s;
+	        transition: border 5s;
+}
+.simmer-list-table .new-row td:first-child {
+	border-left-color: rgb( 122, 208, 58 );
 }
 .simmer-list-table th:last-child,
 .simmer-list-table td:last-child {
@@ -129,6 +138,12 @@
 .simmer-list-table .simmer-remove {
 	width: 15px;
 }
+.simmer-list-table .simmer-sort {
+	position: relative;
+}
+.simmer-list-table .simmer-row.new-row .simmer-sort {
+	border-left: 4px solid rgb( 122, 208, 58 );
+}
 .simmer-list-table .simmer-amt {
 	width: 40px;
 }
@@ -153,10 +168,16 @@
 }
 
 .simmer-list-table .simmer-actions td {
-	text-align: right;
+	padding-left: 12px;
 	border: none;
 }
-.simmer-add-row {
+.simmer-list-table .simmer-actions .simmer-bulk-add-link {
+	float: left;
+	padding-top: 5px;
+	font-weight: bold;
+}
+.simmer-add-row.button {
+	float: right;
 	margin-left: 8px;
 	vertical-align: text-top;
 }
@@ -164,10 +185,300 @@
 	vertical-align: text-top;
 }
 
+/* Builk Modal */
+
+.simmer-bulk-modal-background {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	min-height: 360px;
+	background: #000;
+	opacity: .7;
+	filter: alpha(opacity=70);
+	z-index: 100100;
+}
+.simmer-bulk-modal-wrap {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 500px;
+	margin-left: -250px;
+	background-color: #fff;
+	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,.3);
+	        box-shadow: 0 3px 6px rgba(0,0,0,.3);
+	overflow: hidden;
+	z-index: 100105;
+	-webkit-transition: height .2s, margin-top .2s;
+	        transition: height .2s, margin-top .2s;
+	-webkit-transform: translateY( -50% );
+	   -moz-transform: translateY( -50% );
+	        transform: translateY( -50% );
+}
+@media screen and ( max-width: 520px ) {
+	
+	.simmer-bulk-modal-wrap {
+		width: auto;
+		margin-left: 0;
+		top: 10px;
+		right: 10px;
+		bottom: 10px;
+		left: 10px;
+		-webkit-transform: translateY( 0px );
+		   -moz-transform: translateY( 0px );
+		        transform: translateY( 0px );
+	}
+}
+
+.simmer-bulk-modal-header {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 36px;
+	padding: 0 36px 0 16px;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 36px;
+	background: #fcfcfc;
+	border-bottom: 1px solid #dfdfdf;
+}
+.simmer-bulk-modal-header button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 36px;
+	height: 36px;
+	padding: 0;d
+	color: #666;
+	text-align: center;
+	background: 0 0;
+	border: none;
+	cursor: pointer;
+}
+.simmer-bulk-modal-header button::before {
+	font: 400 20px/36px dashicons;
+	vertical-align: top;
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	width: 36px;
+	height: 36px;
+	content: '\f158';
+}
+
+.simmer-bulk-modal-content {
+	padding: 50px 16px 55px;
+}
+.simmer-bulk-modal-content div.error {
+	margin: 0 0 10px;
+}
+.simmer-bulk-modal-content p {
+	margin-top: 0;
+}
+.simmer-bulk-modal-content textarea {
+	width: 100%;
+}
+@media screen and (max-width: 782px) {
+	
+	.simmer-bulk-modal-content {
+		padding: 50px 16px 60px;
+	}
+}
+
+.simmer-bulk-modal-footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 8px 16px;
+	background: #fcfcfc;
+	border-top: 1px solid #dfdfdf;
+}
+.simmer-bulk-modal-footer .cancel {
+	line-height: 25px;
+	float: left;
+}
+.simmer-bulk-modal-footer .cancel .submitdelete {
+	text-decoration: none;
+	padding: 1px 2px;
+}
+.simmer-bulk-modal-footer .simmer-submit-bulk {
+	line-height: 23px;
+	float: right;
+}
+.simmer-bulk-modal-footer .simmer-submit-bulk button {
+	float: right;
+	margin-bottom: 0;
+}
+.simmer-bulk-modal-footer .simmer-submit-bulk .spinner {
+	float: left;
+	vertical-align: middle;
+}
+@media screen and (max-width: 782px) {
+	
+	.simmer-bulk-modal-footer .cancel {
+		line-height: 32px;
+	}
+}
 
 /* Information */
 input.simmer-time {
 	width: 60px;
+}
+
+/* The Shortcode Button */
+
+#simmer-add-recipe::before {
+	margin: 0 4px 0 0;
+	color: #888;
+	font-size: 18px;
+}
+
+/* Shortcode Modal */
+
+.simmer-shortcode-modal-background {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	min-height: 360px;
+	background: #000;
+	opacity: .7;
+	filter: alpha(opacity=70);
+	z-index: 100000;
+}
+.simmer-shortcode-modal-wrap {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 500px;
+	margin-left: -250px;
+	background-color: #fff;
+	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,.3);
+	        box-shadow: 0 3px 6px rgba(0,0,0,.3);
+	overflow: hidden;
+	z-index: 100001;
+	-webkit-transition: height .2s, margin-top .2s;
+	        transition: height .2s, margin-top .2s;
+	-webkit-transform: translateY( -50% );
+	   -moz-transform: translateY( -50% );
+	        transform: translateY( -50% );
+}
+@media screen and ( max-width: 520px ) {
+	
+	.simmer-shortcode-modal-wrap {
+		width: auto;
+		margin-left: 0;
+		top: 10px;
+		right: 10px;
+		bottom: 10px;
+		left: 10px;
+		-webkit-transform: translateY( 0px );
+		   -moz-transform: translateY( 0px );
+		        transform: translateY( 0px );
+	}
+}
+
+.simmer-shortcode-modal-header {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 36px;
+	padding: 0 36px 0 16px;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 36px;
+	background: #fcfcfc;
+	border-bottom: 1px solid #dfdfdf;
+}
+.simmer-shortcode-modal-header button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 36px;
+	height: 36px;
+	padding: 0;d
+	color: #666;
+	text-align: center;
+	background: 0 0;
+	border: none;
+	cursor: pointer;
+}
+.simmer-shortcode-modal-header button::before {
+	font: 400 20px/36px dashicons;
+	vertical-align: top;
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	width: 36px;
+	height: 36px;
+	content: '\f158';
+}
+
+.simmer-shortcode-modal-content {
+	padding: 50px 16px 75px;
+}
+.simmer-shortcode-modal-content div.error {
+	margin: 0 0 10px;
+}
+.simmer-shortcode-modal-content p {
+	margin-top: 0;
+}
+.simmer-shortcode-modal-content select {
+	width: 100%;
+}
+.select2-dropdown {
+	z-index: 100002;
+}
+@media screen and (max-width: 782px) {
+	
+	.simmer-shortcode-modal-content {
+		padding: 50px 16px 60px;
+	}
+}
+
+.simmer-shortcode-modal-footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 8px 16px;
+	background: #fcfcfc;
+	border-top: 1px solid #dfdfdf;
+}
+.simmer-shortcode-modal-footer .cancel {
+	line-height: 25px;
+	float: left;
+}
+.simmer-shortcode-modal-footer .cancel .submitdelete {
+	text-decoration: none;
+	padding: 1px 2px;
+}
+.simmer-shortcode-modal-footer .simmer-submit-shortcode {
+	line-height: 23px;
+	float: right;
+}
+.simmer-shortcode-modal-footer .simmer-submit-shortcode button {
+	float: right;
+	margin-bottom: 0;
+}
+.simmer-shortcode-modal-footer .simmer-submit-shortcode .spinner {
+	float: left;
+	vertical-align: middle;
+}
+@media screen and (max-width: 782px) {
+	
+	.simmer-shortcode-modal-footer .cancel {
+		line-height: 32px;
+	}
 }
 
 /* The Coming Soon Page */

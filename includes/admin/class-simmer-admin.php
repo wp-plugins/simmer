@@ -119,6 +119,20 @@ final class Simmer_Admin {
 		 * Supporting functions.
 		 */
 		require_once( plugin_dir_path( __FILE__ ) . 'functions/units.php'       );
+		
+		/**
+		 * The Recipes admin.
+		 */
+		require( plugin_dir_path( __FILE__ ) . 'class-simmer-admin-bulk-add.php' );
+		
+		$bulk_add = new Simmer_Admin_Bulk_Add();
+		
+		/**
+		 * The shortcode UI.
+		 */
+		require_once( plugin_dir_path( __FILE__ ) . 'class-simmer-admin-shortcode-ui.php' );
+		
+		$shortcode_ui = new Simmer_Admin_Shortcode_UI();
 	}
 	
 	/**
@@ -171,6 +185,27 @@ final class Simmer_Admin {
 				'remove_ingredient_min'  => __( 'You must have at least one ingredient!',     Simmer::SLUG ),
 				'remove_instruction_min' => __( 'You must have at least one instruction!',    Simmer::SLUG ),
 				'remove_ays'             => __( 'Are you sure you want to remove this item?', Simmer::SLUG ),
+			) );
+			
+			wp_enqueue_script( 'simmer-admin-bulk-script', plugin_dir_url( __FILE__ ) . 'assets/bulk-add.js', array( 'jquery' ), Simmer::VERSION, true );
+			
+			wp_localize_script( 'simmer-admin-bulk-script', 'simmer_bulk_add_vars', array(
+				
+				// Ingredients text.
+				'ingredients_title'       => __( 'Add Bulk Ingredients', Simmer::SLUG ),
+				'ingredients_help'        => __( 'Type or paste the list of ingredients below, one ingredient per line.', Simmer::SLUG ),
+				'ingredients_placeholder' => __( 'e.g. 1 cup flour, sifted', Simmer::SLUG ),
+				'ingredients_button'      => __( 'Add Ingredients',      Simmer::SLUG ),
+				
+				// Instructions text.
+				'instructions_title'       => __( 'Add Bulk Instructions', Simmer::SLUG ),
+				'instructions_help'        => __( 'Type or paste the list of instructions below, one instruction per line.', Simmer::SLUG ),
+				'instructions_placeholder' => __( 'e.g. Preheat your oven to 450 degrees.', Simmer::SLUG ),
+				'instructions_button'      => __( 'Add Instructions',      Simmer::SLUG ),
+				
+				// Misc. text.
+				'error_message'       => __( 'Something went wrong. Please try again.', Simmer::SLUG ),
+				'ajax_url'            => admin_url( 'admin-ajax.php' ),
 			) );
 		}
 	}

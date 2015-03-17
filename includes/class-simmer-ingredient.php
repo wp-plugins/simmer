@@ -1,10 +1,10 @@
 <?php
 /**
- * The single ingredient class
+ * Define the single ingredient class
  * 
  * @since 1.0.0
  * 
- * @package Simmer\Ingredients
+ * @package Simmer/Ingredients
  */
 
 // If this file is called directly, get outa' town.
@@ -12,12 +12,19 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+/**
+ * The class for gathering and formatting information about a single recipe ingredient.
+ * 
+ * @since 1.0.0
+ */
 final class Simmer_Ingredient {
 	
 	/**
 	 * The ingredient amount.
 	 * 
 	 * @since 1.0.0
+	 * 
+	 * @var string $amount
 	 */
 	public $amount = '';
 	
@@ -25,6 +32,8 @@ final class Simmer_Ingredient {
 	 * The ingredient unit of measure.
 	 * 
 	 * @since 1.0.0
+	 * 
+	 * @var string $unit
 	 */
 	public $unit = '';
 	
@@ -32,6 +41,8 @@ final class Simmer_Ingredient {
 	 * The ingredient description.
 	 * 
 	 * @since 1.0.0
+	 * 
+	 * @var string $description
 	 */
 	public $description = '';
 	
@@ -40,9 +51,8 @@ final class Simmer_Ingredient {
 	 * 
 	 * @since 1.0.0
 	 * 
-	 * @param  array  $ingredient The single ingredient's data from post meta.
-	 * @param  bool   $raw        Whether the ingredient object should be raw or formatted for display.
-	 * @return object             The ingredient.
+	 * @param array $ingredient The single ingredient's data from post meta.
+	 * @param bool  $raw        Optional. Whether the ingredient object should be raw or formatted for output.
 	 */
 	public function __construct( $ingredient, $filter = 'display' ) {
 		
@@ -127,7 +137,7 @@ final class Simmer_Ingredient {
 	}
 	
 	/**
-	 * Convert the amount string to a decimal.
+	 * Convert the amount string to a float.
 	 *
 	 * @since 1.0.0
 	 * 
@@ -179,8 +189,8 @@ final class Simmer_Ingredient {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array   $unit  The given unit & its labels.
-	 * @param int     $count Optional. The ingredient count.
+	 * @param  array  $unit  The given unit & its labels.
+	 * @param  int    $count Optional. The ingredient count.
 	 * @return string $label The appropriate label.
 	 */
 	public static function get_unit_label( $unit, $count = 1 ) {

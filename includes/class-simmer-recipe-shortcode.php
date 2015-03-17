@@ -22,9 +22,10 @@ final class Simmer_Recipe_Shortcode {
 	/**
 	 * The shortcode's name/slug.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
-	 * @var string $shortcode_slug
+	 * 
+	 * @var string $shortcode_slug The shortcode's name/slug.
 	 */
 	private $shortcode_slug;
 	
@@ -32,8 +33,6 @@ final class Simmer_Recipe_Shortcode {
 	 * Build the class.
 	 * 
 	 * @since 1.0.0
-	 * 
-	 * @return void
 	 */
 	public function __construct() {
 		
@@ -44,22 +43,16 @@ final class Simmer_Recipe_Shortcode {
 	 * Add the hooks that do all of the work.
 	 * 
 	 * @since 1.0.0
-	 * 
-	 * @return void
 	 */
 	public function init() {
 		
 		add_action( 'init', array( $this, 'add_shortcode' ), 10 );
-		
-		add_action( 'init', array( $this, 'register_ui' ), 15 );
 	}
 	
 	/**
 	 * Add the shortcode and display when called.
 	 * 
 	 * @since 1.0.0
-	 * 
-	 * @return void
 	 */
 	public function add_shortcode() {
 		
@@ -123,33 +116,6 @@ final class Simmer_Recipe_Shortcode {
 		wp_reset_postdata();
 		
 		return ob_get_clean();
-	}
-	
-	/**
-	 * If the shortcode UI plugin is present, make the UI available for [recipe].
-	 * 
-	 * @since 1.0.0
-	 * 
-	 * @return void
-	 */
-	public function register_ui() {
-		
-		if ( function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
-				
-			shortcode_ui_register_for_shortcode( $this->shortcode_slug, array(
-					'label' => __( 'Recipe', Simmer::SLUG ),
-					'listItemImage' => '<div class="simmer-icon-fork"></div>',
-					'attrs' => array(
-		                array(
-		                    'label' => 'Recipe ID',
-		                    'attr'  => 'id',
-		                    'type'  => 'number',
-		                ),
-		            ),
-		        )
-		    );
-		    
-		}
 	}
 }
 

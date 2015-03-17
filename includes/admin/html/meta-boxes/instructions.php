@@ -81,9 +81,7 @@ $instructions = get_post_meta( $recipe->ID, '_recipe_instructions', true ); ?>
 					
 				<?php endif; ?>
 				
-				<?php $count++;
-				
-			endforeach; ?>
+			<?php endforeach; ?>
 			
 		<?php else : ?>
 			
@@ -107,17 +105,28 @@ $instructions = get_post_meta( $recipe->ID, '_recipe_instructions', true ); ?>
 		
 	</tbody>
 	
-	<tfoot>
+	<tfoot class="hide-if-no-js">
 		<tr class="simmer-actions">
-			<td colspan="3">
-				<a class="simmer-add-row button" data-type="heading" href="#">
-					<span class="dashicons dashicons-plus"></span>
-					<?php _e( 'Add a Heading', Simmer::SLUG ); ?>
-				</a>
+			<td colspan="5">
+				
+				<a class="simmer-bulk-add-link hide-if-no-js" href="#" data-type="instruction"><?php _e( '+ Add in Bulk', Simmer::SLUG ); ?></a>
+				
 				<a class="simmer-add-row button" data-type="instruction" href="#">
 					<span class="dashicons dashicons-plus"></span>
 					<?php _e( 'Add an Instruction', Simmer::SLUG ); ?>
 				</a>
+				<a class="simmer-add-row button" data-type="heading" href="#">
+					<span class="dashicons dashicons-plus"></span>
+					<?php _e( 'Add a Heading', Simmer::SLUG ); ?>
+				</a>
+				
+				<?php /**
+				* Execute after the core action buttons have been rendered.
+				* 
+				* @since 1.2.0
+				*/
+				do_action( 'simmer_instructions_admin_actions' ); ?>
+				
 			</td>
 		</tr>
 	</tfoot>

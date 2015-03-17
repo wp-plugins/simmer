@@ -17,45 +17,77 @@
 		
 	</div><!-- .simmer-recipe-date -->
 	
-	<ul class="simmer-recipe-details">
+	<div class="simmer-recipe-details">
 		
-		<?php if ( $prep_time = simmer_get_the_prep_time() ) : ?>
+		<ul class="simmer-recipe-timing">
 			
-			<?php $machine_time = simmer_format_machine_duration( simmer_get_the_time( 'prep', get_the_ID() ) ); ?>
+			<?php if ( $prep_time = simmer_get_the_prep_time() ) : ?>
+				
+				<?php $machine_time = simmer_format_machine_duration( simmer_get_the_time( 'prep', get_the_ID() ) ); ?>
+				
+				<li>
+					<strong><?php _e( 'Prep Time', Simmer::SLUG ); ?>:</strong> 
+					<meta itemprop="prepTime" content="<?php echo esc_attr( $machine_time ); ?>"><?php echo esc_html( $prep_time ); ?>
+				</li>
+				
+			<?php endif; ?>
 			
-			<li><?php _e( 'Prep Time', Simmer::SLUG ); ?>: <meta itemprop="prepTime" content="<?php echo esc_attr( $machine_time ); ?>"><?php echo esc_html( $prep_time ); ?></li>
+			<?php if ( $cook_time = simmer_get_the_cook_time() ) : ?>
+				
+				<?php $machine_time = simmer_format_machine_duration( simmer_get_the_time( 'cook', get_the_ID() ) ); ?>
+				
+				<li>
+					<strong><?php _e( 'Cook Time', Simmer::SLUG ); ?>:</strong> 
+					<meta itemprop="cookTime" content="<?php echo esc_attr( $machine_time ); ?>"><?php echo esc_html( $cook_time ); ?>
+				</li>
+				
+			<?php endif; ?>
 			
-		<?php endif; ?>
+			<?php if ( $total_time = simmer_get_the_total_time() ) : ?>
+				
+				<?php $machine_time = simmer_format_machine_duration( simmer_get_the_time( 'total', get_the_ID() ) ); ?>
+				
+				<li>
+					<strong><?php _e( 'Total Time', Simmer::SLUG ); ?>:</strong> 
+					<meta itemprop="totalTime" content="<?php echo esc_attr( $machine_time ); ?>"><?php echo esc_html( $total_time ); ?>
+				</li>
+				
+			<?php endif; ?>
+			
+		</ul><!-- .simmer-recipe-timing -->
 		
-		<?php if ( $cook_time = simmer_get_the_cook_time() ) : ?>
+		<ul class="simmer-recipe-extras">
 			
-			<?php $machine_time = simmer_format_machine_duration( simmer_get_the_time( 'cook', get_the_ID() ) ); ?>
+			<?php if ( $servings = simmer_get_the_servings() ) : ?>
+				
+				<li>
+					<strong><?php _e( 'Serves', Simmer::SLUG ); ?>:</strong> 
+					<span itemprop="recipeYield"><?php echo esc_html( $servings ); ?></span>
+				</li>
+				
+			<?php endif; ?>
 			
-			<li><?php _e( 'Cook Time', Simmer::SLUG ); ?>: <meta itemprop="cookTime" content="<?php echo esc_attr( $machine_time ); ?>"><?php echo esc_html( $cook_time ); ?></li>
+			<?php if ( $yield = simmer_get_the_yield() ) : ?>
+				
+				<li>
+					<strong><?php _e( 'Yield', Simmer::SLUG ); ?>:</strong> 
+					<span itemprop="recipeYield"><?php echo esc_html( $yield ); ?></span>
+				</li>
+				
+			<?php endif; ?>
 			
-		<?php endif; ?>
+			<?php if ( $categories = get_the_term_list( get_the_ID(), simmer_get_category_taxonomy(), '', ', ' ) ) : ?>
+				
+				<li>
+					<strong><?php _e( 'Category', Simmer::SLUG ); ?>:</strong> 
+					<span itemprop="recipeCategory"><?php echo $categories; ?></span>
+				</li>
+				
+			<?php endif; ?>
+			
+		</ul><!-- .simmer-recipe-extras -->
 		
-		<?php if ( $total_time = simmer_get_the_total_time() ) : ?>
-			
-			<?php $machine_time = simmer_format_machine_duration( simmer_get_the_time( 'total', get_the_ID() ) ); ?>
-			
-			<li><?php _e( 'Total Time', Simmer::SLUG ); ?>: <meta itemprop="totalTime" content="<?php echo esc_attr( $machine_time ); ?>"><?php echo esc_html( $total_time ); ?></li>
-			
-		<?php endif; ?>
-		
-		<?php if ( $servings = simmer_get_the_servings() ) : ?>
-			
-			<li><?php _e( 'Serves', Simmer::SLUG ); ?>: <span itemprop="recipeYield"><?php echo esc_html( $servings ); ?></span></li>
-			
-		<?php endif; ?>
-		
-		<?php if ( $yield = simmer_get_the_yield() ) : ?>
-			
-			<li><?php _e( 'Yield', Simmer::SLUG ); ?>: <span itemprop="recipeYield"><?php echo esc_html( $yield ); ?></span></li>
-			
-		<?php endif; ?>
-		
-	</ul>
+	</div><!-- .simmer-recipe-details -->
 	
 	<?php simmer_list_ingredients(); ?>
 	

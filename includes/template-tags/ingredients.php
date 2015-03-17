@@ -131,7 +131,7 @@ function simmer_list_ingredients( $args = array() ) {
 		'item_type'    => apply_filters( 'simmer_ingredients_list_item_type', 'li' ),
 		'item_class'   => 'simmer-ingredient',
 		'none_message' => __( 'This recipe has no ingredients', Simmer::SLUG ),
-		'none_class'   => 'simmer-info',
+		'none_class'   => 'simmer-message',
 		'echo'         => true,
 	);
 	
@@ -150,6 +150,12 @@ function simmer_list_ingredients( $args = array() ) {
 	// Start the output!
 	$output = '';
 	
+	if ( true == $args['show_heading'] ) {
+		$output .= '<' . sanitize_html_class( $args['heading_type'] ) . '>';
+			$output .= esc_html( $args['heading'] );
+		$output .= '</' . sanitize_html_class( $args['heading_type'] ) . '>';
+	}
+	
 	if ( ! empty( $ingredients ) ) {
 		
 		/**
@@ -158,12 +164,6 @@ function simmer_list_ingredients( $args = array() ) {
 		 * @since 1.0.0
 		 */
 		do_action( 'simmer_before_ingredients_list' );
-		
-		if ( true == $args['show_heading'] ) {
-			$output .= '<' . sanitize_html_class( $args['heading_type'] ) . '>';
-				$output .= esc_html( $args['heading'] );
-			$output .= '</' . sanitize_html_class( $args['heading_type'] ) . '>';
-		}
 		
 		/**
 		 * Create an array of attributes for the list element.

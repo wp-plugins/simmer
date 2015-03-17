@@ -69,6 +69,7 @@ jQuery( document ).ready( function( $ ) {
 		clone.find( 'td input, td select, td textarea' ).not( '.simmer-heading-input' ).val( '' );
 		
 		clone.removeClass( 'simmer-row-hidden' );
+		clone.addClass( 'new-row' );
 		
 		clone.find( 'input, select, textarea' ).each( function() {
 			
@@ -86,6 +87,10 @@ jQuery( document ).ready( function( $ ) {
 		
 		// Auto-focus on first input after the row is added.
 		clone.find( 'td input:not(.hide-if-js):first, td textarea:first' ).focus();
+		
+		setTimeout( function() {
+			$( '.simmer-list-table .new-row' ).removeClass( 'new-row' );
+		}, 100 );
 		
 	} );
 	

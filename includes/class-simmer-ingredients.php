@@ -1,6 +1,6 @@
 <?php
 /**
- * The main ingredients class
+ * Define the main ingredients class
  * 
  * @since 1.0.0
  * 
@@ -12,6 +12,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+/**
+ * The class that handles the specialty ingredients funcitonality.
+ * 
+ * @since 1.0.0
+ */
 final class Simmer_Ingredients {
 	
 	/**

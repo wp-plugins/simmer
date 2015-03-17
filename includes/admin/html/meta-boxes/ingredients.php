@@ -89,13 +89,24 @@
 		
 	</tbody>
 	
-	<tfoot>
+	<tfoot class="hide-if-no-js">
 		<tr class="simmer-actions">
 			<td colspan="5">
+				
+				<a class="simmer-bulk-add-link hide-if-no-js" href="#" data-type="ingredient"><?php _e( '+ Add in Bulk', Simmer::SLUG ); ?></a>
+				
 				<a class="simmer-add-row button" data-type="ingredient" href="#">
 					<span class="dashicons dashicons-plus"></span>
 					<?php _e( 'Add an Ingredient', Simmer::SLUG ); ?>
 				</a>
+				
+				<?php /**
+				* Execute after the core action buttons have been rendered.
+				* 
+				* @since 1.2.0
+				*/
+				do_action( 'simmer_ingredients_admin_actions' ); ?>
+				
 			</td>
 		</tr>
 	</tfoot>

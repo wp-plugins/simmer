@@ -111,16 +111,17 @@ function simmer_get_instructions_list_type() {
 function simmer_list_instructions( $args = array() ) {
 	
 	$defaults = array(
-		'show_heading' => true,
-		'heading'	   => simmer_get_instructions_list_heading(),
-		'heading_type' => apply_filters( 'simmer_instructions_list_heading_type', 'h3' ),
-		'list_type'	   => simmer_get_instructions_list_type(),
-		'list_class'   => 'simmer-instructions',
-		'item_type'    => apply_filters( 'simmer_instructions_list_item_type', 'li' ),
-		'item_class'   => 'simmer-instruction',
-		'none_message' => __( 'This recipe has no instructions', Simmer::SLUG ),
-		'none_class'   => 'simmer-info',
-		'echo'         => true,
+		'show_heading'      => true,
+		'heading'	        => simmer_get_instructions_list_heading(),
+		'heading_type'      => apply_filters( 'simmer_instructions_list_heading_type', 'h3' ),
+		'list_type'	        => simmer_get_instructions_list_type(),
+		'list_class'        => 'simmer-instructions',
+		'item_type'         => apply_filters( 'simmer_instructions_list_item_type', 'li' ),
+		'item_heading_type' => apply_filters( 'simmer_instructions_list_item_heading_type', 'h4' ),
+		'item_class'        => 'simmer-instruction',
+		'none_message'      => __( 'This recipe has no instructions', Simmer::SLUG ),
+		'none_class'        => 'simmer-message',
+		'echo'              => true,
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
@@ -138,6 +139,12 @@ function simmer_list_instructions( $args = array() ) {
 	// Start the output!
 	$output = '';
 	
+	if ( true == $args['show_heading'] ) {
+		$output .= '<' . sanitize_html_class( $args['heading_type'] ) . '>';
+			$output .= esc_html( $args['heading'] );
+		$output .= '</' . sanitize_html_class( $args['heading_type'] ) . '>';
+	}
+	
 	if ( ! empty( $instructions ) ) {
 		
 		/**
@@ -146,12 +153,6 @@ function simmer_list_instructions( $args = array() ) {
 		 * @since 1.0.0
 		 */
 		do_action( 'simmer_before_instructions_list' );
-		
-		if ( true == $args['show_heading'] ) {
-			$output .= '<' . sanitize_html_class( $args['heading_type'] ) . '>';
-				$output .= esc_html( $args['heading'] );
-			$output .= '</' . sanitize_html_class( $args['heading_type'] ) . '>';
-		}
 		
 		/**
 		 * Create an array of attributes for the list element.
@@ -224,9 +225,9 @@ function simmer_list_instructions( $args = array() ) {
 					}
 					
 					// Build the heading.
-					$output .= '<' . sanitize_html_class( $args['heading_type'] ) . '>';
+					$output .= '<' . sanitize_html_class( $args['item_heading_type'] ) . '>';
 						$output .= esc_html( $instruction['desc'] );
-					$output .= '</' . sanitize_html_class( $args['heading_type'] ) . '>';
+					$output .= '</' . sanitize_html_class( $args['item_heading_type'] ) . '>';
 					
 					// Build the new list's opening tag based on the attributes above.
 					$output .= '<' . sanitize_html_class( $args['list_type'] );

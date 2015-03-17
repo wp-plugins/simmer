@@ -66,29 +66,6 @@ function simmer_get_archive_base() {
 }
 
 /**
- * Determine whether the default front-end styles should be loaded.
- * 
- * @since 1.0.0
- * 
- * @return bool $enqueue_styles Whether the styles should be loaded.
- */
-function simmer_enqueue_styles() {
-	
-	$enqueue_styles = get_option( 'simmer_enqueue_styles', true );
-	
-	/**
-	 * Filter whether the styles should be loaded.
-	 * 
-	 * @since 1.0.0
-	 * 
-	 * @param bool $enqueue_styles Whether the styles are set to load.
-	 */
-	$enqueue_styles = apply_filters( 'simmer_enqueue_styles', $enqueue_styles );
-	
-	return (bool) $enqueue_styles;
-}
-
-/**
  * Convert a hex color to RGB values.
  *
  * @since 1.0.0

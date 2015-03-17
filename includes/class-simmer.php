@@ -23,15 +23,17 @@ final class Simmer {
 	 * The plugin version.
 	 *
 	 * @since 1.0.0
-	 * @var string The plugin version.
+	 * 
+	 * @var string VERSION The plugin version.
 	 */
-	const VERSION = '1.1.0';
+	const VERSION = '1.2.0';
 	
 	/**
 	 * The plugin slug.
 	 *
 	 * @since 1.0.0
-	 * @var string The plugin slug.
+	 * 
+	 * @var string SLUG The plugin slug.
 	 */
 	const SLUG = 'simmer';
 	
@@ -40,20 +42,19 @@ final class Simmer {
 	/**
 	 * The only instance of this class.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access protected
-	 * @var object The only instance of this class.
+	 * 
+	 * @var object $_instance The only instance of this class.
 	 */
 	protected static $_instance = null;
 	
 	/**
-	 * Get the main instance.
-	 *
-	 * Insure that only one instance of this class exists in memory at any one time.
+	 * Get the only instance of this class.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return The only instance of this class.
+	 * @return object $_instance The only instance of this class.
 	 */
 	public static function get_instance() {
 		
@@ -65,12 +66,9 @@ final class Simmer {
 	}
 	
 	/**
-	 * Prevent this class from being loaded more than once.
+	 * Construct the class.
 	 *
-	 * @since 1.0.0
-	 * @access private
-	 * 
-	 * @return void
+	 * @since  1.0.0
 	 */
 	public function __construct() {
 		
@@ -80,11 +78,8 @@ final class Simmer {
 		// Add the essential action hooks.
 		$this->add_actions();
 		
-		// Add the essential filter hooks.
-		$this->add_filters();
-		
 		/**
-		 * Allow others to trigger actions after Simmer has been loaded.
+		 * Fire after Simmer has been loaded.
 		 *
 		 * @since 1.0.0
 		 */
@@ -95,8 +90,6 @@ final class Simmer {
 	 * Prevent this class from being cloned.
 	 *
 	 * @since 1.0.0
-	 * 
-	 * @return void
 	 */
 	public function __clone() {
 		
@@ -107,8 +100,6 @@ final class Simmer {
 	 * Prevent this class from being unserialized.
 	 *
 	 * @since 1.0.0
-	 * 
-	 * @return void
 	 */
 	public function __wakeup() {
 		
@@ -120,10 +111,8 @@ final class Simmer {
 	/**
 	 * Load the necessary supporting files.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
-	 * 
-	 * @return void
 	 */
 	private function require_files() {
 		
@@ -150,11 +139,6 @@ final class Simmer {
 		require( plugin_dir_path( __FILE__ ) . 'class-simmer-ingredient.php'  );
 		
 		/**
-		 * The all-important template loader.
-		 */
-		require( plugin_dir_path( __FILE__ ) . 'class-simmer-template-loader.php' );
-		
-		/**
 		 * The shortcode functions.
 		 */
 		require( plugin_dir_path( __FILE__ ) . 'class-simmer-recipe-shortcode.php' );
@@ -162,16 +146,19 @@ final class Simmer {
 		/**
 		 * The deprecated functions.
 		 */
-		require( plugin_dir_path( __FILE__ ) . 'deprecated.php' );
+		require( plugin_dir_path( __FILE__ ) . 'deprecated-functions.php' );
+		
+		/**
+		 * The front-end loader.
+		 */
+		require_once( plugin_dir_path( __FILE__ ) . 'front-end/class-simmer-front-end-loader.php' );
 	}
 	
 	/**
 	 * Add the essential action hooks.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
-	 * 
-	 * @return void
 	 */
 	private function add_actions() {
 		
@@ -184,25 +171,9 @@ final class Simmer {
 		// Register the category taxonomy.
 		add_action( 'init', array( $this, 'register_category_taxonomy' ) );
 		
-		// Check if front-end styles should be enqueued.
-		if ( simmer_enqueue_styles() ) {
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-			add_action( 'wp_head', array( $this, 'custom_styles' ) );
-		}
-	}
-	
-	/**
-	 * Add the essential filter hooks.
-	 *
-	 * @since 1.0.0
-	 * @access private
-	 * 
-	 * @return void
-	 */
-	private function add_filters() {
-		
-		// Append the actual recipe to the content of a recipe object type.
-		add_filter( 'the_content', array( $this, 'append_recipe' ), 99, 1 );
+		// Load the front-end functionality.
+		$front_end = new Simmer_Front_End_Loader();
+		add_action( 'wp', array( $front_end, 'load' ) );
 	}
 	
 	/** Public Methods **/
@@ -242,9 +213,6 @@ final class Simmer {
 	 * Register the 'recipe' object type.
 	 *
 	 * @since 1.0.0
-	 * @see register_post_type()
-	 *
-	 * @return void
 	 */
 	public function register_object_type() {
 		
@@ -269,6 +237,7 @@ final class Simmer {
 				'excerpt',
 				'thumbnail',
 				'comments',
+				'author',
 			),
 			'taxonomies' => array(
 				simmer_get_category_taxonomy(),
@@ -281,7 +250,7 @@ final class Simmer {
 		);
 		
 		/**
-		 * Allow others to filter the recipe object type args.
+		 * Filter the recipe object type arguments.
 		 *
 		 * @since 1.0.0
 		 * @see register_post_type() for the available args.
@@ -301,9 +270,6 @@ final class Simmer {
 	 * Register the category taxonomy.
 	 *
 	 * @since 1.0.0
-	 * @see register_taxonomy()
-	 *
-	 * @return void
 	 */
 	public function register_category_taxonomy() {
 		
@@ -318,7 +284,7 @@ final class Simmer {
 		);
 		
 		/**
-		 * Allow others to filter the taxonomy args.
+		 * Filter the taxonomy args.
 		 *
 		 * @since 1.0.0
 		 * @see register_taxonomy() for the available args.
@@ -346,80 +312,5 @@ final class Simmer {
 			simmer_get_category_taxonomy(),
 			simmer_get_object_type()
 		);
-	}
-	
-	public function append_recipe( $content ) {
-		
-		if ( ! is_singular( simmer_get_object_type() ) ) {
-			return $content;
-		}
-		
-		ob_start();
-		
-		echo $content;
-		
-		do_action( 'simmer_before_recipe', get_the_ID() );
-		
-		simmer_get_template_part( 'recipe' );
-		
-		do_action( 'simmer_after_recipe', get_the_ID() );
-		
-		return ob_get_clean();
-	}
-	
-	/**
-	 * Enqueue the front-end styles.
-	 * 
-	 * @since 1.0.0
-	 * 
-	 * @return void.
-	 */
-	public function enqueue_styles() {
-		
-		// The main front-end stylsheet.
-		wp_enqueue_style( 'simmer-plugin-styles', plugin_dir_url( __FILE__ ) . 'assets/styles.css', array(), self::VERSION );
-	}
-	
-	/**
-	 * Add the custom front-end styles.
-	 * 
-	 * @since 1.0.0
-	 * 
-	 * @return void.
-	 */
-	public function custom_styles() {
-		
-		$accent_color = get_option( 'simmer_recipe_accent_color', '000' );
-		$accent_color = simmer_hex_to_rgb( $accent_color );
-		$accent_color = implode( ', ', $accent_color );
-		
-		$text_color = get_option( 'simmer_recipe_text_color', '000' );
-		$text_color = simmer_hex_to_rgb( $text_color );
-		$text_color = implode( ', ', $text_color );
-		
-		?>
-		
-		<style>
-			.simmer-recipe {
-				color: rgb( <?php echo esc_html( $text_color ); ?> );
-				background: rgba( <?php echo esc_html( $accent_color ); ?>, .01 );
-				border-color: rgba( <?php echo esc_html( $accent_color ); ?>, 0.1 );
-			}
-			.simmer-recipe-details {
-				border-color: rgba( <?php echo esc_html( $accent_color ); ?>, 0.2 );
-			}
-			.simmer-recipe-details li {
-				border-color: rgba( <?php echo esc_html( $accent_color ); ?>, 0.1 );
-			}
-		</style>
-		
-		<?php
-		
-		/**
-		 * Do additional custom styles.
-		 *
-		 * @since 1.0.0
-		 */
-		do_action( 'simmer_custom_styles' );
 	}
 }

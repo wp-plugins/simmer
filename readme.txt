@@ -3,7 +3,7 @@ Contributors: ChaseWiseman, lchelak, gobwd
 Tags: recipes, recipe, cooking, food, food blog, content marketing, food content marketing, drinks, drink recipes, tutorial maker, tutorials, recipe maker, baking, crafts, DIY, do it yourself
 Requires at least: 3.8
 Tested up to: 4.1.1
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,15 @@ Yes, Simmer provides a number of customized options for each recipe to provide m
 Yes, with the Tinypass for Simmer extension (coming soon) you can easily monetize your media business or blog through micro payments. [Find out more from Tinypass](http://tinypass.com/).
 
 == Changelog ==
+
+= 1.2.0 =
+* New: Bulk add recipe ingredients or instructions
+* New: 'Add Recipe' shortcode button and modal UI
+* New: Enhanced embedded recipe display with excerpts and thumbnails
+* New: [Developer API reference](http://develop.simmerwp.com)
+* Tweak: Additional template classes and styling
+* Tweak: Recipe author setting
+* Tweak: Add more code documentation
 
 = 1.1.0 =
 * Add the Recent Recipes widget
