@@ -2,15 +2,27 @@
 # This file is distributed under the same license as the Simmer package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Simmer 1.1.0\n"
+"Project-Id-Version: Simmer 1.2.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/simmer\n"
-"POT-Creation-Date: 2015-02-24 19:00:46+00:00\n"
+"POT-Creation-Date: 2015-03-17 19:45:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin/class-simmer-admin-bulk-add.php:62
+msgid "No don't have permission to do this."
+msgstr ""
+
+#: includes/admin/class-simmer-admin-bulk-add.php:72
+msgid "Please add some text."
+msgstr ""
+
+#: includes/admin/class-simmer-admin-bulk-add.php:91
+msgid "Could not parse input."
+msgstr ""
 
 #: includes/admin/class-simmer-admin-recipes.php:54
 #: includes/admin/class-simmer-admin-settings.php:79
@@ -74,7 +86,7 @@ msgstr ""
 
 #: includes/admin/class-simmer-admin-settings.php:57
 #: includes/admin/class-simmer-admin-settings.php:58
-#: includes/class-simmer.php:254
+#: includes/class-simmer.php:222
 msgid "Recipes"
 msgstr ""
 
@@ -174,25 +186,66 @@ msgstr ""
 msgid "Could not connect to the Simmer API. Please try again later."
 msgstr ""
 
+#: includes/admin/class-simmer-admin-shortcode-ui.php:100
+#: includes/admin/class-simmer-admin-shortcode-ui.php:101
+msgid "Add Recipe"
+msgstr ""
+
 #: includes/admin/class-simmer-admin.php:81
-#: includes/admin/class-simmer-admin.php:93 includes/class-simmer.php:103
-#: includes/class-simmer.php:115
+#: includes/admin/class-simmer-admin.php:93 includes/class-simmer.php:96
+#: includes/class-simmer.php:106
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: includes/admin/class-simmer-admin.php:171
+#: includes/admin/class-simmer-admin.php:185
 msgid "You must have at least one ingredient!"
 msgstr ""
 
-#: includes/admin/class-simmer-admin.php:172
+#: includes/admin/class-simmer-admin.php:186
 msgid "You must have at least one instruction!"
 msgstr ""
 
-#: includes/admin/class-simmer-admin.php:173
+#: includes/admin/class-simmer-admin.php:187
 msgid "Are you sure you want to remove this item?"
 msgstr ""
 
 #: includes/admin/class-simmer-admin.php:195
+msgid "Add Bulk Ingredients"
+msgstr ""
+
+#: includes/admin/class-simmer-admin.php:196
+msgid "Type or paste the list of ingredients below, one ingredient per line."
+msgstr ""
+
+#: includes/admin/class-simmer-admin.php:197
+msgid "e.g. 1 cup flour, sifted"
+msgstr ""
+
+#: includes/admin/class-simmer-admin.php:198
+msgid "Add Ingredients"
+msgstr ""
+
+#: includes/admin/class-simmer-admin.php:201
+msgid "Add Bulk Instructions"
+msgstr ""
+
+#: includes/admin/class-simmer-admin.php:202
+msgid "Type or paste the list of instructions below, one instruction per line."
+msgstr ""
+
+#: includes/admin/class-simmer-admin.php:203
+msgid "e.g. Preheat your oven to 450 degrees."
+msgstr ""
+
+#: includes/admin/class-simmer-admin.php:204
+msgid "Add Instructions"
+msgstr ""
+
+#: includes/admin/class-simmer-admin.php:207
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: includes/admin/class-simmer-admin.php:230
 msgid "%s Recipe"
 msgid_plural "%s Recipes"
 msgstr[0] ""
@@ -238,18 +291,40 @@ msgstr ""
 msgid "Get the Most out of Simmer"
 msgstr ""
 
+#: includes/admin/html/meta-boxes/bulk-add.php:17
+msgid "Add In Bulk"
+msgstr ""
+
+#: includes/admin/html/meta-boxes/bulk-add.php:19
+#: includes/admin/html/shortcode-modal.php:19
+msgid "Close"
+msgstr ""
+
+#: includes/admin/html/meta-boxes/bulk-add.php:27
+msgid "Type or copy/paste the list of items below, one item per line."
+msgstr ""
+
+#: includes/admin/html/meta-boxes/bulk-add.php:35
+#: includes/admin/html/shortcode-modal.php:55
+msgid "Cancel"
+msgstr ""
+
+#: includes/admin/html/meta-boxes/bulk-add.php:39
+msgid "Add"
+msgstr ""
+
 #: includes/admin/html/meta-boxes/information.php:41
-#: templates/recipe-shortcode.php:40 templates/recipe.php:26
+#: templates/recipe-shortcode.php:51 templates/recipe.php:29
 msgid "Prep Time"
 msgstr ""
 
 #: includes/admin/html/meta-boxes/information.php:48
-#: templates/recipe-shortcode.php:48 templates/recipe.php:34
+#: templates/recipe-shortcode.php:62 templates/recipe.php:40
 msgid "Cook Time"
 msgstr ""
 
 #: includes/admin/html/meta-boxes/information.php:55
-#: templates/recipe-shortcode.php:56 templates/recipe.php:42
+#: templates/recipe-shortcode.php:73 templates/recipe.php:51
 msgid "Total Time"
 msgstr ""
 
@@ -262,7 +337,7 @@ msgid "3-4 people"
 msgstr ""
 
 #: includes/admin/html/meta-boxes/information.php:67
-#: templates/recipe-shortcode.php:68 templates/recipe.php:54
+#: templates/recipe-shortcode.php:95 templates/recipe.php:73
 msgid "Yield"
 msgstr ""
 
@@ -287,7 +362,12 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/ingredients.php:97
+#: includes/admin/html/meta-boxes/ingredients.php:96
+#: includes/admin/html/meta-boxes/instructions.php:112
+msgid "+ Add in Bulk"
+msgstr ""
+
+#: includes/admin/html/meta-boxes/ingredients.php:100
 msgid "Add an Ingredient"
 msgstr ""
 
@@ -296,12 +376,12 @@ msgstr ""
 msgid "Heading"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/instructions.php:115
-msgid "Add a Heading"
+#: includes/admin/html/meta-boxes/instructions.php:116
+msgid "Add an Instruction"
 msgstr ""
 
-#: includes/admin/html/meta-boxes/instructions.php:119
-msgid "Add an Instruction"
+#: includes/admin/html/meta-boxes/instructions.php:120
+msgid "Add a Heading"
 msgstr ""
 
 #: includes/admin/html/settings/advanced/on-uninstall.php:14
@@ -385,54 +465,69 @@ msgstr ""
 msgid "full names (i.e. \"pounds\")"
 msgstr ""
 
+#: includes/admin/html/shortcode-modal.php:17
+msgid "Insert Recipe"
+msgstr ""
+
+#: includes/admin/html/shortcode-modal.php:25
+msgid "Select or search for a recipe name."
+msgstr ""
+
+#: includes/admin/html/shortcode-modal.php:39
+msgid "Choose a recipe..."
+msgstr ""
+
+#: includes/admin/html/shortcode-modal.php:59
+msgid "Insert into post"
+msgstr ""
+
 #: includes/admin/settings/class-simmer-plugins-list-table-row.php:90
 msgid "Settings"
 msgstr ""
 
-#: includes/class-simmer-recipe-shortcode.php:140
-#: includes/class-simmer.php:255
+#: includes/class-simmer.php:223
 msgid "Recipe"
 msgstr ""
 
-#: includes/class-simmer.php:256
+#: includes/class-simmer.php:224
 msgid "All Recipes"
 msgstr ""
 
-#: includes/class-simmer.php:257
+#: includes/class-simmer.php:225
 msgid "Add New Recipe"
 msgstr ""
 
-#: includes/class-simmer.php:258
+#: includes/class-simmer.php:226
 msgid "Edit Recipe"
 msgstr ""
 
-#: includes/class-simmer.php:259
+#: includes/class-simmer.php:227
 msgid "New Recipe"
 msgstr ""
 
-#: includes/class-simmer.php:260
+#: includes/class-simmer.php:228
 msgid "View Recipe"
 msgstr ""
 
-#: includes/class-simmer.php:261
+#: includes/class-simmer.php:229
 msgid "Search Recipes"
 msgstr ""
 
-#: includes/class-simmer.php:262
+#: includes/class-simmer.php:230
 msgid "No recipes found"
 msgstr ""
 
-#: includes/class-simmer.php:263
+#: includes/class-simmer.php:231
 msgid "No recipes found in Trash"
 msgstr ""
 
-#: includes/deprecated.php:33
+#: includes/deprecated-functions.php:33 includes/deprecated.php:33
 msgid ""
 "%1$s is <strong>deprecated</strong> since Simmer version %2$s! Use %3$s "
 "instead."
 msgstr ""
 
-#: includes/deprecated.php:43
+#: includes/deprecated-functions.php:43 includes/deprecated.php:43
 msgid ""
 "%1$s is <strong>deprecated</strong> since Simmer version %2$s with no "
 "alternative available."
@@ -446,7 +541,7 @@ msgstr ""
 msgid "This recipe has no ingredients"
 msgstr ""
 
-#: includes/template-tags/instructions.php:121
+#: includes/template-tags/instructions.php:122
 msgid "This recipe has no instructions"
 msgstr ""
 
@@ -499,8 +594,12 @@ msgstr ""
 msgid "Created by %1s on %2s"
 msgstr ""
 
-#: templates/recipe-shortcode.php:62 templates/recipe.php:48
+#: templates/recipe-shortcode.php:86 templates/recipe.php:64
 msgid "Serves"
+msgstr ""
+
+#: templates/recipe-shortcode.php:104 templates/recipe.php:82
+msgid "Category"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
