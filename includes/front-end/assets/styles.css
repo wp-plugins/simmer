@@ -75,9 +75,47 @@
 	margin-bottom: 1em;
 }
 
-/* Source */
-.simmer-recipe-source {
+/* Footer */
+
+.simmer-recipe-footer {
+	padding-top: 10px;
 	font-size: 0.8em;
+	border-top: 1px solid rgb( 0, 0, 0 );
+}
+.simmer-recipe-footer::before,
+.simmer-recipe-footer::after {
+	content: "";
+	display: table;
+}
+.simmer-recipe-footer::after {
+	clear: both;
+}
+
+/* Source */
+
+.simmer-recipe-source {
+	float: left;
+	width: 48%;
+}
+
+/* Tools */
+
+.simmer-recipe-tools {
+	float: right;
+	width: 48%;
+	text-align: right;
+}
+.simmer-recipe-tools ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.simmer-recipe-tools li {
+	float: right;
+	margin-right: 10px;
+}
+.simmer-recipe-tools li:last-child {
+	margin-right: 0;
 }
 
 /* Messages */

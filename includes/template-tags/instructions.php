@@ -253,7 +253,7 @@ function simmer_list_instructions( $args = array() ) {
 					 * custom attributes like data-*="" for JavaScript.
 					 */
 					$item_attributes = array(
-						'itemprop' => 'recipeInstruction',
+						'itemprop' => 'recipeInstructions',
 					);
 					
 					if ( ! empty( $args['item_class'] ) ) {

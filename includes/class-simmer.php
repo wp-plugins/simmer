@@ -26,7 +26,7 @@ final class Simmer {
 	 * 
 	 * @var string VERSION The plugin version.
 	 */
-	const VERSION = '1.2.0';
+	const VERSION = '1.2.1';
 	
 	/**
 	 * The plugin slug.

@@ -21,8 +21,13 @@ class Simmer_Front_End_Styles {
 	 */
 	public function enqueue_styles() {
 		
+		// The icon font.
+		wp_register_style( 'simmer-icons', dirname( plugin_dir_url( __FILE__ ) ) . '/assets/icons/css/simmer-icons.css', array(), Simmer::VERSION );
+		
 		// The main front-end stylsheet.
-		wp_enqueue_style( 'simmer-plugin-styles', plugin_dir_url( __FILE__ ) . 'assets/styles.css', array(), Simmer::VERSION );
+		wp_enqueue_style( 'simmer-plugin-styles', plugin_dir_url( __FILE__ ) . 'assets/styles.css', array(
+			'simmer-icons',
+		), Simmer::VERSION );
 	}
 	
 	/**
@@ -57,6 +62,9 @@ class Simmer_Front_End_Styles {
 			.simmer-message {
 				color: rgb( <?php echo esc_html( $text_color ); ?> );
 				background: rgba( <?php echo esc_html( $accent_color ); ?>, .1 );
+			}
+			.simmer-recipe-footer {
+				border-color: rgba( <?php echo esc_html( $accent_color ); ?>, 0.2 );
 			}
 		</style>
 		
