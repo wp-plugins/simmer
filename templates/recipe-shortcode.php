@@ -115,8 +115,41 @@
 	
 	<?php simmer_list_instructions(); ?>
 	
-	<div class="simmer-recipe-source">
-		<?php simmer_the_source(); ?>
-	</div>
+	<div class="simmer-recipe-footer">
+		
+		<div class="simmer-recipe-source">
+			<?php simmer_the_source(); ?>
+		</div>
+		
+		<div class="simmer-recipe-tools">
+			
+			<ul>
+				<li class="simmer-recipe-print icon-print">
+					<a href="#"><?php _e( 'Print', Simmer::SLUG ); ?></a>
+				</li>
+				
+				<?php /**
+				 * Trigger to add more tools to the recipe footer.
+				 * 
+				 * @since 1.2.1
+				 * 
+				 * @param int $recipe_id The current recipe ID.
+				 */
+				do_action( 'simmer_recipe_tools', get_the_ID() );
+				
+				/**
+				 * Trigger to add more tools to the embedded recipe footer.
+				 * 
+				 * @since 1.2.1
+				 * 
+				 * @param int $recipe_id The current recipe ID.
+				 */
+				do_action( 'simmer_recipe_tools_embedded', get_the_ID() ); ?>
+				
+			</ul>
+			
+		</div><!-- .simmer-recipe-tools -->
+		
+	</div><!-- .simmer-recipe-footer -->
 	
 </div>

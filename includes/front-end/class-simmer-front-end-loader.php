@@ -15,6 +15,16 @@ if ( ! defined( 'WPINC' ) ) {
 class Simmer_Front_End_Loader {
 	
 	/**
+	 * Whether the recipe schema wrapper has been opened.
+	 *
+	 * @since  1.2.1
+	 * @access private
+	 *
+	 * @var bool $schema_wrap_open
+	 */
+	private $schema_wrap_open = false;
+	
+	/**
 	 * Get the loader running.
 	 * 
 	 * @since 1.2.0
@@ -55,6 +65,11 @@ class Simmer_Front_End_Loader {
 		require_once( plugin_dir_path( __FILE__ ) . 'class-simmer-front-end-styles.php' );
 		
 		/**
+		 * The JS scripts class.
+		 */
+		require_once( plugin_dir_path( __FILE__ ) . 'class-simmer-frontend-scripts.php' );
+		
+		/**
 		 * The supporting functions.
 		 */
 		require_once( plugin_dir_path( __FILE__ ) . 'functions.php' );
@@ -83,6 +98,23 @@ class Simmer_Front_End_Loader {
 			add_action( 'wp_enqueue_scripts', array( $styles, 'enqueue_styles' ) );
 			add_action( 'wp_head', array( $styles, 'add_custom_styles' ) );
 		}
+		
+		/**
+		 * Set up the scripts.
+		 */
+		$scripts = new Simmer_Frontend_Scripts();
+		
+		// Check if front-end scripts should be enqueued.
+		if ( $scripts->enable_scripts() ) {
+			add_action( 'wp_enqueue_scripts', array( $scripts, 'enqueue_scripts' ) );
+		}
+		
+		// Add the opening schema markup before outputting the recipe.
+		add_action( 'loop_start', array( $this, 'open_schema_wrap' ) );
+		
+		// Add the closing schema markup after outputting the recipe.
+		add_action( 'loop_end', array( $this, 'close_schema_wrap' ) );
+
 	}
 	
 	/**
@@ -100,8 +132,98 @@ class Simmer_Front_End_Loader {
 		add_filter( 'body_class', array( $html_classes, 'add_body_classes' ), 20, 1 );
 		add_filter( 'post_class', array( $html_classes, 'add_recipe_classes' ), 20, 3 );
 		
+		// Wrap the title with the proper schema markup.
+		add_filter( 'the_title', array( $this, 'add_title_schema' ), 10, 2 );
+		
+		// Add schema.org property to a single recipe's featured image.
+		add_filter( 'wp_get_attachment_image_attributes', array( $this, 'add_featured_image_schema' ), 20, 2 );
+		
 		// Add the recipe display to the bottom of a singular recipe's content.
 		add_filter( 'the_content', array( $this, 'append_recipe' ), 99, 1 );
+	}
+	
+	/**
+	 * Add the opening schema markup before outputting the recipe.
+	 * 
+	 * @since 1.3.0
+	 * 
+	 * @param object $query The currently looped WP_Query.
+	 */
+	public function open_schema_wrap( $query ) {
+		
+		if ( true === $this->schema_wrap_open ) {
+			return;
+		}
+		
+		if ( $query->is_singular( simmer_get_object_type() ) && $query->is_main_query() ) {
+			
+			$this->schema_wrap_open = true;
+			
+			echo '<span itemscope itemtype="http://schema.org/Recipe">';
+		}
+	}
+	
+	/**
+	 * Add the closing schema markup after outputting the recipe.
+	 * 
+	 * @since 1.3.0
+	 * 
+	 * @param object $query The currently looped WP_Query.
+	 */
+	public function close_schema_wrap( $query ) {
+		
+		if ( false === $this->schema_wrap_open ) {
+			return;
+		}
+		
+		if ( $query->is_singular( simmer_get_object_type() ) && $query->is_main_query() ) {
+			
+			$this->schema_wrap_open = false;
+			
+			echo '</span>';
+		}
+	}
+	
+	/**
+	 * Wrap the title with the proper schema markup.
+	 * 
+	 * @since 1.3.0
+	 * 
+	 * @param  string $title The recipe's title.
+	 * @param  int    $id    The recipe's ID.
+	 * @return string $title The recipe's title with schema markup added.
+	 */
+	public function add_title_schema( $title, $id = 0 ) {
+		
+		$wrapped_title = $title;
+		
+		if ( $id == get_the_ID() && is_singular( simmer_get_object_type() ) && is_main_query() ) {
+			
+			$wrapped_title = '<span itemprop="name">';
+				$wrapped_title .= $title;
+			$wrapped_title .= '</span>';
+		}
+		
+		return $wrapped_title;
+	}
+	
+	/**
+	 * Add schema.org property to a single recipe's featured image.
+	 *
+	 * @since 1.2.1
+	 *
+	 * @param  array  $attributes The existing image attributes.
+	 * @param  object $image      The image's post object.
+	 * @return array  $attributes The image attributes, possibly with the schema.org property added.
+	 */
+	public function add_featured_image_schema( $attributes, $image ) {
+		
+		if ( $image->ID == get_post_thumbnail_id( get_the_ID() ) && is_singular( simmer_get_object_type() ) && is_main_query() ) {
+			
+			$attributes['itemprop'] = 'image';
+		}
+		
+		return $attributes;
 	}
 	
 	/**
@@ -119,7 +241,11 @@ class Simmer_Front_End_Loader {
 		
 		ob_start();
 		
-		echo $content;
+		echo '<div class="simmer-recipe-description" itemprop="description">';
+			
+			echo $content;
+			
+		echo '</div><!-- .simmer-recipe-description -->';
 		
 		do_action( 'simmer_before_recipe', get_the_ID() );
 		
