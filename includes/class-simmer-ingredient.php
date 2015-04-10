@@ -149,6 +149,9 @@ final class Simmer_Ingredient {
 		// Assume there is no whole number.
 		$has_whole = false;
 		
+		// Remove whitespace.
+		$amount = trim( $amount );
+		
 		// Check for a space, signifying a whole number with a fraction.
 		if ( strstr( $amount, ' ' ) ) {
 			

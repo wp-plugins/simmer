@@ -11,7 +11,7 @@
  * Plugin Name: Simmer
  * Plugin URI:  http://simmerwp.com
  * Description: A recipe plugin for WordPress.
- * Version:     1.2.1
+ * Version:     1.2.2
  * Author:      BWD inc.
  * Author URI:  http://gobwd.com
  * License:     GPL-2.0+
