@@ -19,7 +19,7 @@
 }
 */
  
- [class^="icon-"]:before, [class*=" icon-"]:before {
+ [class^="simmer-icon-"]:before, [class*=" simmer-icon-"]:before {
   font-family: "simmer-icons";
   font-style: normal;
   font-weight: normal;
@@ -50,5 +50,5 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
-.icon-logo:before { content: '\e800'; } /* '' */
-.icon-print:before { content: '\e801'; } /* '' */
+.simmer-icon-logo:before { content: '\e800'; } /* '' */
+.simmer-icon-print:before { content: '\e801'; } /* '' */
