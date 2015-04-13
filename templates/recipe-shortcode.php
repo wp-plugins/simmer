@@ -124,7 +124,7 @@
 		<div class="simmer-recipe-tools">
 			
 			<ul>
-				<li class="simmer-recipe-print icon-print">
+				<li class="simmer-recipe-print simmer-icon-print">
 					<a href="#"><?php _e( 'Print', Simmer::SLUG ); ?></a>
 				</li>
 				
