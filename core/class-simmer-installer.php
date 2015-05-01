@@ -145,7 +145,7 @@ final class Simmer_Installer {
 		// Upgrade Simmer from 1.2.X to 1.3.0.
 		if ( version_compare( $db_version, '1.1.0', '<' ) ) {
 			
-			if ( $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . "simmer_recipe_items" ) ) {
+			if ( ! $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . "simmer_recipe_items" ) ) {
 				$upgrader->from_1_2();
 			}
 			
