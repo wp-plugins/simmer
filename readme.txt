@@ -2,24 +2,38 @@
 Contributors: ChaseWiseman, lchelak, gobwd
 Tags: recipes, recipe, cooking, food, food blog, content marketing, food content marketing, drinks, drink recipes, tutorial maker, tutorials, recipe maker, baking, crafts, DIY, do it yourself
 Requires at least: 3.8
-Tested up to: 4.2 Beta 4
-Stable tag: 1.2.3
+Tested up to: 4.2.1
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Simmer is a recipe app on the WordPress platform for people who love to create & market things with food & drink.
+Simmer is a recipe publishing tool for WordPress.
 
 == Description ==
 
-Simmer is a recipe app on the WordPress platform for people who love to create or market products with food & drink media. We all love the simple, human act of sharing how to prepare a favorite meal.
+We all love the simple, human act of sharing how to prepare a favorite meal. Simmer enables WordPress users to quickly and easily publish their recipes with minimal hassle. With a focus on the key areas necessary for a great recipe publishing experience, Simmer stays lightweight and easy to use and doesn't get bogged down by 101 half-baked features.
 
-**Standardized Recipe Data for the Semantic Web**
+**Elegant UI**
 
-Add ingredients, step-by-step instructions, sub-headings, structured cook times, and a lot more all within a simple, user friendly, drag and drop interface. Reorder with ease, and think critically about how you’re compiling content for your target audiences every step of the way.
+Add ingredients, step-by-step instructions, sub-headings, structured cook times, and a lot more all within a user-friendly drag and drop interface.
 
-**Simplicity**
+**Built for Discovery**
 
-Simmer seamlessly fits within the existing structure and style of WordPress, so you'll barely notice it’s even a 3rd party plugin. Our team of leading user interface (UI) experts continually works to polish every part of the overall user experience for our customers as a part of our active, frequent release schedule, ensuring Simmer will always remain fluid, secure, and as close to flawless as we can achieve.
+Simmer automatically bakes semantic structure and [schema.org](http://schema.org) microdata in to the core of every recipe you publish. This allows Google to standardize and serve your recipes across a variety of devices and platforms.
+
+**Easily Extendable**
+
+Simmer is built with developers in mind. Utilize the many actions and filters detailed in the [Developer API](http://develop.simmerwp.com) to customize Simmer to fit any project. Or, check out the official [Extensions Library](https://simmerwp.com/extensions/) to find an extension that meets your needs. Check back often as new extensions are always being developed!
+
+**Additional Features**
+
+* Bulk-add ingredients & instructions
+* Recipe categories
+* Add recipe servings, yield, and source name and/or link
+* Embed recipes anywhere in your posts or pages
+* Front-end recipe printing
+
+**Follow Simmer's development on [Github](http://github.com/bwdinc/simmer/)**
 
 == Installation ==
 
@@ -54,6 +68,12 @@ Yes, Simmer provides a number of customized options for each recipe to provide m
 Yes, with the Tinypass for Simmer extension (coming soon) you can easily monetize your media business or blog through micro payments. [Find out more from Tinypass](http://tinypass.com/).
 
 == Changelog ==
+
+= 1.3.0 =
+* New: Items API for handling ingredients, instructions, and other custom recipe data
+* New: Refactored architecture and file structure to allow for greater extensibility
+* New: Major feature addition welcome screen
+* Tweak: Documentation overhaul for the [Developer API reference](http://develop.simmerwp.com)
 
 = 1.2.3 =
 * Fix: Prevent theme icon font incompatibilities
@@ -104,6 +124,9 @@ Fixed an early exit error on clean uninstall
 Preheating the oven to 450...
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+This update makes significant database changes. It is recommended that you fully back up your recipes before proceeding.
 
 = 1.0.1 =
 This version fixes an error some encounter when attempting to uninstall the plugin. Please upgrade.
