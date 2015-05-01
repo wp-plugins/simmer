@@ -29,9 +29,11 @@ final class Simmer_Installer {
 		// Create the custom database tables.
 		self::create_db_tables();
 		
+		$current_version = get_option( 'simmer_version', '1.0.0' );
+		
 		// Upgrade older versions of Simmer.
-		if ( get_option( 'simmer_version' ) && version_compare( get_option( 'simmer_version' ), Simmer()->version, '<' ) ) {
-			self::upgrade();
+		if ( version_compare( $current_version, Simmer()->version, '<' ) ) {
+			self::upgrade( $current_version );
 		}
 		
 		// Reset the version number.
@@ -127,16 +129,29 @@ final class Simmer_Installer {
 	 *
 	 * @since  1.3.0
 	 * @access private
+	 *
+	 * @param string $current_version The current Simmer version.
 	 */
-	private static function upgrade() {
+	private static function upgrade( $current_version ) {
+		
+		global $wpdb;
 		
 		require( plugin_dir_path( __FILE__ ) . 'class-simmer-upgrade.php' );
 		
 		$upgrader = new Simmer_Upgrade;
 		
-		// Upgrade Simmer from 1.2.X to 1.3.X.
-		if ( get_option( 'simmer_version' ) && version_compare( get_option( 'simmer_version' ), '1.3.0', '<' ) ) {
-			$upgrader->from_1_2();
+		$db_version = get_option( 'simmer_db_version', '1.0.0' );
+		
+		// Upgrade Simmer from 1.2.X to 1.3.0.
+		if ( version_compare( $db_version, '1.1.0', '<' ) ) {
+			
+			if ( $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . "simmer_recipe_items" ) ) {
+				$upgrader->from_1_2();
+			}
+			
+			// Reset the db version number.
+			delete_option( 'simmer_db_version' );
+			add_option( 'simmer_db_version', '1.1.0', '', 'no' );
 		}
 	}
 	
