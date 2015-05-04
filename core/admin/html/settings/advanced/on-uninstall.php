@@ -8,7 +8,7 @@
  */
 ?>
 
-<?php $on_uninstall = get_option( 'simmer_on_uninstall', 'keep_all' ); ?>
+<?php $on_uninstall = get_option( 'simmer_on_uninstall', 'delete_settings' ); ?>
 
 <fieldset>
 	<label for="simmer_on_uninstall_delete_settings" title="<?php _e( 'Delete settings data', Simmer()->domain ); ?>">
