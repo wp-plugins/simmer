@@ -55,9 +55,9 @@ final class Simmer_Installer {
 	 */
 	public static function uninstall() {
 		
-		delete_option( 'simmer_version' );
+		global $wpdb;
 		
-		$on_uninstall = get_option( 'simmer_on_uninstall', 'keep_all' );
+		$on_uninstall = get_option( 'simmer_on_uninstall', 'delete_settings' );
 		
 		// Check that the user wants everything deleted with the plugin.
 		if ( 'keep_all' == $on_uninstall ) {
@@ -66,24 +66,8 @@ final class Simmer_Installer {
 		
 		if ( 'delete_settings' == $on_uninstall || 'delete_all' == $on_uninstall ) {
 			
-			delete_option( 'simmer_ingredients_list_heading'  );
-			delete_option( 'simmer_ingredients_list_type'     );
-			delete_option( 'simmer_units_format'              );
-			
-			delete_option( 'simmer_instructions_list_heading' );
-			delete_option( 'simmer_instructions_list_type'    );
-			
-			delete_option( 'simmer_enqueue_styles'      );
-			delete_option( 'simmer_recipe_accent_color' );
-			delete_option( 'simmer_recipe_text_color'   );
-			
-			delete_option( 'simmer_license' );
-			
-			delete_option( 'simmer_on_uninstall' );
-			
-			delete_option( 'simmer_archive_base'  );
-			delete_option( 'simmer_recipe_base'   );
-			delete_option( 'simmer_category_base' );
+			// Delete options
+			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'simmer_%';" );
 			
 		}
 		
@@ -120,7 +104,8 @@ final class Simmer_Installer {
 			}
 			
 			// Remove the custom DB tables.
-			self::drop_db_tables();
+			$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "simmer_recipe_items" );
+			$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "simmer_recipe_itemmeta" );
 		}
 	}
 	
@@ -207,28 +192,5 @@ final class Simmer_Installer {
 			
 			dbDelta( $query );
 		}
-	}
-	
-	/**
-	 * Drop the custom database tables.
-	 *
-	 * @since 1.3.0
-	 * @access private
-	 *
-	 * @global $wpdb The WordPress database object.
-	 */
-	private static function drop_db_tables() {
-		
-		global $wpdb;
-		
-		$items_table_name     = $wpdb->prefix . 'simmer_recipe_items';
-		$item_meta_table_name = $wpdb->prefix . 'simmer_recipe_itemmeta';
-		
-		$query = "DROP TABLE IF EXISTS $items_table_name;";
-		$query .= "DROP TABLE IF EXISTS $item_meta_table_name;";
-		
-		$wpdb->query(
-			$wpdb->prepare( $query )
-		);
 	}
 }

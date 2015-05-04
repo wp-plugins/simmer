@@ -12,4 +12,6 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	return;
 }
 
+require_once( plugin_dir_path( __FILE__ ) . 'core/class-simmer-installer.php' );
+
 Simmer_Installer::uninstall();
