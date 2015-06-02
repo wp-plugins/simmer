@@ -2,8 +2,8 @@
 Contributors: ChaseWiseman, lchelak, gobwd
 Tags: recipes, recipe, cooking, food, food blog, content marketing, food content marketing, drinks, drink recipes, tutorial maker, tutorials, recipe maker, baking, crafts, DIY, do it yourself
 Requires at least: 3.8
-Tested up to: 4.2.1
-Stable tag: 1.3.2
+Tested up to: 4.2.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,29 +11,35 @@ Simmer is a recipe publishing tool for WordPress.
 
 == Description ==
 
-We all love the simple, human act of sharing how to prepare a favorite meal. Simmer enables WordPress users to quickly and easily publish their recipes with minimal hassle. With a focus on the key areas necessary for a great recipe publishing experience, Simmer stays lightweight and easy to use and doesn't get bogged down by 101 half-baked features.
+We all love the simple, human act of sharing how to prepare a favorite meal. Simmer enables WordPress users to quickly and easily publish their recipes with minimal hassle. With a focus on the key areas necessary for a great recipe & food data publishing experience, Simmer stays lightweight and easy to use. Check out Simmer for Recipes in a [live demo](http://demo.simmerwp.com).
 
 **Elegant UI**
 
 Add ingredients, step-by-step instructions, sub-headings, structured cook times, and a lot more all within a user-friendly drag and drop interface.
 
-**Built for Discovery**
+**Food Data Discovery**
 
-Simmer automatically bakes semantic structure and [schema.org](http://schema.org) microdata in to the core of every recipe you publish. This allows Google to standardize and serve your recipes across a variety of devices and platforms.
+Simmer automatically bakes semantic structure and [schema.org](http://schema.org) microdata in to the core of every recipe you publish. This allows Google to standardize and serve your recipes across a variety of devices and platforms. In addition, our easy to understand recipe index structure allows you to create endless libraries and collections of specific recipes.
 
 **Easily Extendable**
 
-Simmer is built with developers in mind. Utilize the many actions and filters detailed in the [Developer API](http://develop.simmerwp.com) to customize Simmer to fit any project. Or, check out the official [Extensions Library](https://simmerwp.com/extensions/) to find an extension that meets your needs. Check back often as new extensions are always being developed!
+Simmer is built with developers in mind. Utilize the many actions and filters detailed in the [Developer API](http://develop.simmerwp.com) to customize Simmer to fit any project. Or, check out the official [Add-Ons Library](https://simmerwp.com/extensions/) to find an extension (including content e-commerce) that meets your needs. Check back often as new extensions are always being developed!
 
 **Additional Features**
 
-* Bulk-add ingredients & instructions
+* Bulk-add ingredients & instructions as blocks of text
+* Work with any social sharing tools including [AddThis](http://www.addthis.com)
+* All recipes are fully responsive & ready for mobile depending on your theme out of the box
+* Create custom recipe card themes & styling easily
+* Widgets: display your most recent recipes and/or recipe categories in your sidebar
 * Recipe categories
-* Add recipe servings, yield, and source name and/or link
+* Recipe authors
+* Add recipe servings, yield, cook times, and source name and/or link
 * Embed recipes anywhere in your posts or pages
+* Featured thumbnail for each recipe
 * Front-end recipe printing
 
-**Follow Simmer's development on [Github](http://github.com/bwdinc/simmer/)**
+**Follow Simmer's development on [Github](http://github.com/bwdinc/simmer/) and [simmerwp.com](https://simmerwp.com/blog).**
 
 == Installation ==
 
@@ -68,6 +74,17 @@ Yes, Simmer provides a number of customized options for each recipe to provide m
 Yes, with the Tinypass for Simmer extension (coming soon) you can easily monetize your media business or blog through micro payments. [Find out more from Tinypass](http://tinypass.com/).
 
 == Changelog ==
+
+= 1.3.3 =
+* New: Ingredient heading support, just like instructions
+* New: 'orderby' param for ingredient queries
+* New: Optionally exclude headings in ingredient & instruction queries
+* Tweak: Separate serving number & label meta fields & values
+* Tweak: Reinstate the 'Quick Edit' post row action for recipes
+* Tweak: Improve file & folder structure
+* Tweak: Remove core plugin licensing
+* Tweak: Improve add-on license detection
+* Fix: Input autofocus for ingredients UI
 
 = 1.3.2 =
 * Tweak: Change default uninstall setting

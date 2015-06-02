@@ -48,11 +48,17 @@
 	
 	<ul class="simmer-recipe-extras">
 		
-		<?php if ( $servings = simmer_get_the_servings() ) : ?>
+		<?php $servings = simmer_get_the_servings(); ?>
+		<?php $servings_label = simmer_get_the_servings_label(); ?>
+		
+		<?php if ( $servings || $servings_label ) : ?>
 			
 			<li>
 				<strong><?php _e( 'Serves', Simmer()->domain ); ?>:</strong> 
-				<span itemprop="recipeYield"><?php echo esc_html( $servings ); ?></span>
+				<span itemprop="recipeYield">
+					<?php echo esc_html( $servings ); ?>
+					<?php echo esc_html( $servings_label ); ?>
+				</span>
 			</li>
 			
 		<?php endif; ?>
@@ -79,9 +85,13 @@
 	
 </div><!-- .simmer-recipe-details -->
 
-<?php simmer_list_ingredients(); ?>
+<div class="simmer-recipe-ingredients">
+	<?php simmer_list_ingredients(); ?>
+</div><!-- .simmer-recipe-ingredients -->
 
-<?php simmer_list_instructions(); ?>
+<div class="simmer-recipe-instructions">
+	<?php simmer_list_instructions(); ?>
+</div><!-- .simmer-recipe-instructions -->
 
 <div class="simmer-recipe-footer">
 	

@@ -7,11 +7,6 @@
  * @package Simmer/Admin/Recipes
  */
 
-// If this file is called directly, bail.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
-
 /**
  * Set up the recipes admin.
  *
@@ -19,30 +14,51 @@ if ( ! defined( 'WPINC' ) ) {
  */
 final class Simmer_Admin_Recipes {
 	
+	/** Singleton **/
+	
 	/**
-	 * Construct the class.
-	 * 
-	 * @since 1.0.0
+	 * The singleton instance of the class.
+	 *
+	 * @since  1.3.3
+	 * @access private
+	 * @var    object $instance.
 	 */
-	public function __construct() {
+	private static $instance = null;
+	
+	/**
+	 * Get the singleton instance of the class.
+	 *
+	 * @since 1.3.3
+	 *
+	 * @return object self::$instance The single instance of the class.
+	 */
+	public static function get_instance() {
 		
-		// Add the recipe metaboxes.
-		add_action( 'add_meta_boxes', array( $this, 'add_metaboxes' ) );
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
 		
-		// Save the recipe meta.
-		add_action( 'save_post_recipe', array( $this, 'save_recipe_meta' ) );
+		return self::$instance;
+	}
+	
+	/**
+	 * Prevent the class from being cloned.
+	 *
+	 * @since 1.3.3
+	 */
+	public function __clone() {
 		
-		// Add custom "updated" messages.
-		add_filter( 'post_updated_messages', array( $this, 'updated_messages' ) );
+		_doing_it_wrong( __FUNCTION__, __( 'The Simmer_Admin_Recipes class can not be cloned', Simmer()->domain ), Simmer()->version );
+	}
+	
+	/**
+	 * Prevent the class from being unserialized.
+	 *
+	 * @since 1.3.3
+	 */
+	public function __wakeup() {
 		
-		// Add custom bulk 'recipe updated' messages.
-		add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_updated_messages' ), 10, 2 );
-		
-		// Remove the recipe items on recipe deletion.
-		add_action( 'delete_post', array( $this, 'delete_recipe_items' ) );
-		
-		// Remove the "Quick Edit" link from the recipe row actions.
-		add_filter( 'post_row_actions', array( $this, 'hide_quick_edit_link' ), 10, 2 );
+		_doing_it_wrong( __FUNCTION__, __( 'The Simmer_Admin_Recipes class can not be unserialized', Simmer()->domain ), Simmer()->version );
 	}
 	
 	/**
@@ -113,7 +129,7 @@ final class Simmer_Admin_Recipes {
 		/**
 		 * Include the meta box HTML.
 		 */
-		include_once( 'html/meta-boxes/ingredients.php' );
+		include_once( 'views/meta-boxes/ingredients.php' );
 		
 		/**
 		 * Fires after displaying the ingredients meta box.
@@ -146,7 +162,7 @@ final class Simmer_Admin_Recipes {
 		/**
 		 * Include the meta box HTML.
 		 */
-		include_once( 'html/meta-boxes/instructions.php' );
+		include_once( 'views/meta-boxes/instructions.php' );
 		
 		/**
 		 * Fires after displaying the instructions meta box.
@@ -176,10 +192,20 @@ final class Simmer_Admin_Recipes {
 		 */
 		do_action( 'simmer_before_information_metabox', $recipe );
 		
+		// Get the servings & servings label.
+		$servings = get_post_meta( $recipe->ID, '_recipe_servings', true );
+		
+		// If the Servings value isn't a number (pre 1.3.3), switch it to the servings label to prevent data loss.
+		if ( is_numeric( absint( $servings ) ) ) {
+			$servings_label = get_post_meta( $recipe->ID, '_recipe_servings_label', true );
+		} else {
+			$servings_label = $servings;
+			$servings = '';
+		}
 		/**
 		 * Include the meta box HTML.
 		 */
-		include_once( 'html/meta-boxes/information.php' );
+		include_once( 'views/meta-boxes/information.php' );
 		
 		/**
 		 * Fires after displaying the information meta box.
@@ -227,20 +253,22 @@ final class Simmer_Admin_Recipes {
 					continue;
 				}
 				
-				$amount = Simmer_Recipe_Ingredient::convert_amount_to_float( $ingredient['amount'] );
+				$amount = ( isset( $ingredient['amount'] ) ) ? Simmer_Recipe_Ingredient::convert_amount_to_float( $ingredient['amount'] ) : '';
+				$unit = ( isset( $ingredient['unit'] ) ) ? $ingredient['unit'] : '';
 				
 				if ( isset( $ingredient['id'] ) && $ingredient['id'] ) {
 					
 					$ingredient_id = simmer_update_recipe_ingredient( $ingredient['id'], array(
 						'amount'      => $amount,
-						'unit'        => $ingredient['unit'],
+						'unit'        => $unit,
 						'description' => $ingredient['description'],
 						'order'       => $ingredient['order'],
+						'is_heading'  => $ingredient['heading'],
 					) );
 					
 				} else {
 					
-					$ingredient_id = simmer_add_recipe_ingredient( get_the_ID(), $ingredient['description'], $amount, $ingredient['unit'], $ingredient['order'] );
+					$ingredient_id = simmer_add_recipe_ingredient( get_the_ID(), $ingredient['description'], $amount, $unit, $ingredient['heading'], $ingredient['order'] );
 					
 				}
 				
@@ -351,10 +379,19 @@ final class Simmer_Admin_Recipes {
 		}
 		
 		// Maybe save the servings.
-		if ( ! empty( $_POST['simmer_servings'] ) ) {
-			update_post_meta( $id, '_recipe_servings', $_POST['simmer_servings'] );
+		$servings = absint( $_POST['simmer_servings'] );
+		
+		if ( ! empty( $servings ) ) {
+			update_post_meta( $id, '_recipe_servings', absint( $_POST['simmer_servings'] ) );
 		} else {
 			delete_post_meta( $id, '_recipe_servings' );
+		}
+		
+		// Maybe save the servings label.
+		if ( ! empty( $_POST['simmer_servings_label'] ) ) {
+			update_post_meta( $id, '_recipe_servings_label', $_POST['simmer_servings_label'] );
+		} else {
+			delete_post_meta( $id, '_recipe_servings_label' );
 		}
 		
 		// Maybe save the yield.
@@ -481,26 +518,4 @@ final class Simmer_Admin_Recipes {
 			simmer_delete_recipe_item( $item->recipe_item_id );
 		}
 	}
-	
-	/**
-	 * Remove the "Quick Edit" link from the recipe row actions.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param  array  $actions The list of post row actions.
-	 * @param  object $object  The current object.
-	 * @return array  $actions The list of post row actions.
-	 */
-	public function hide_quick_edit_link( $actions, $object ) {
-		
-		// Only remove the link if this is a recipe.
-		if ( $object->post_type == simmer_get_object_type() ) {
-			
-			unset( $actions['inline hide-if-no-js'] );
-		}
-
-		return $actions;
-	}
 }
-
-new Simmer_Admin_Recipes();

@@ -105,9 +105,13 @@
 		
 	</div><!-- .simmer-recipe-details -->
 	
-	<?php simmer_list_ingredients(); ?>
+	<div class="simmer-recipe-ingredients">
+		<?php simmer_list_ingredients(); ?>
+	</div><!-- .simmer-recipe-ingredients -->
 	
-	<?php simmer_list_instructions(); ?>
+	<div class="simmer-recipe-instructions">
+		<?php simmer_list_instructions(); ?>
+	</div><!-- .simmer-recipe-instructions -->
 	
 	<div class="simmer-recipe-footer">
 		

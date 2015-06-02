@@ -129,8 +129,23 @@ function simmer_get_the_total_time( $recipe_id = null, $format = 'human' ) {
  */
 function simmer_the_servings( $before = '', $after = '' ) {
 	
-	if ( $servings = simmer_get_the_servings() ) {
-		echo $before . esc_html( $servings ) . $after;
+	$servings = simmer_get_the_servings();
+	$servings_label = simmer_get_the_servings_label();
+	
+	if ( $servings || $servings_label ) {
+		echo $before;
+	}
+	
+	if ( $servings ) {
+		echo esc_html( $servings );
+	}
+	
+	if ( $servings_label ) {
+		echo esc_html( $servings_label );
+	}
+	
+	if ( $servings || $servings_label ) {
+		echo $after;
 	}
 }
 
@@ -150,6 +165,10 @@ function simmer_get_the_servings( $recipe_id = null ) {
 	
 	$servings = get_post_meta( $recipe_id, '_recipe_servings', true );
 	
+	if ( ! is_numeric( $servings ) ) {
+		$servings = false;
+	}
+	
 	/**
 	 * Filter the returned servings value.
 	 * 
@@ -161,6 +180,35 @@ function simmer_get_the_servings( $recipe_id = null ) {
 	$servings = apply_filters( 'simmer_get_the_servings', $servings, $recipe_id );
 	
 	return $servings;
+}
+
+/**
+ * Get the recipe's servings label.
+ *
+ * @since 1.3.3
+ * 
+ * @param  int    $recipe_id      Optional. A recipe's ID.
+ * @return string $servings_label The recipe's servings label
+ */
+function simmer_get_the_servings_label( $recipe_id = null ) {
+	
+	if ( ! is_numeric( $recipe_id ) ) {
+		$recipe_id = get_the_ID();
+	}
+	
+	$servings_label = get_post_meta( $recipe_id, '_recipe_servings_label', true );
+	
+	/**
+	 * Filter the returned servings label value.
+	 * 
+	 * @since 1.3.3
+	 * 
+	 * @param string|bool $servings_label The returned servings label or '' if none set.
+	 * @param int         $recipe_id      The recipe's ID.
+	 */
+	$servings_label = apply_filters( 'simmer_get_the_servings_label', $servings_label, $recipe_id );
+	
+	return $servings_label;
 }
 
 /**

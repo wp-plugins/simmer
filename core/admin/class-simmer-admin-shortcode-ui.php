@@ -7,11 +7,6 @@
  * @package Simmer\Admin
  */
 
-// If this file is called directly, bail.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
-
 class Simmer_Admin_Shortcode_UI {
 	
 	/**
@@ -22,6 +17,53 @@ class Simmer_Admin_Shortcode_UI {
 	 * @var array $supported_post_types
 	 */
 	public $supported_post_types;
+	
+	/** Singleton **/
+	
+	/**
+	 * The singleton instance of the class.
+	 *
+	 * @since  1.3.3
+	 * @access private
+	 * @var    object $instance.
+	 */
+	private static $instance = null;
+	
+	/**
+	 * Get the singleton instance of the class.
+	 *
+	 * @since 1.3.3
+	 *
+	 * @return object self::$instance The single instance of the class.
+	 */
+	public static function get_instance() {
+		
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+		
+		return self::$instance;
+	}
+	
+	/**
+	 * Prevent the class from being cloned.
+	 *
+	 * @since 1.3.3
+	 */
+	public function __clone() {
+		
+		_doing_it_wrong( __FUNCTION__, __( 'The Simmer_Admin_Shortcode_UI class can not be cloned', Simmer()->domain ), Simmer()->version );
+	}
+	
+	/**
+	 * Prevent the class from being unserialized.
+	 *
+	 * @since 1.3.3
+	 */
+	public function __wakeup() {
+		
+		_doing_it_wrong( __FUNCTION__, __( 'The Simmer_Admin_Shortcode_UI class can not be unserialized', Simmer()->domain ), Simmer()->version );
+	}
 	
 	/**
 	 * Construct the class.
@@ -35,26 +77,6 @@ class Simmer_Admin_Shortcode_UI {
 			'post',
 			'page',
 		);
-		
-		// Add the necessary action hooks.
-		$this->add_actions();
-	}
-	
-	/**
-	 * Add the necessary action hooks.
-	 * 
-	 * @since  1.2.0
-	 * @access private
-	 */
-	private function add_actions() {
-		
-		// Enqueue the modal script.
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_script' ) );
-		
-		// Add the 'Add Recipe' button above the main content editor.
-		add_action( 'media_buttons', array( $this, 'add_media_button' ), 99 );
-		
-		add_action( 'admin_footer', array( $this, 'add_modal' ) );
 	}
 	
 	/**
@@ -114,7 +136,7 @@ class Simmer_Admin_Shortcode_UI {
 		// Only load the modal when editing or creating a new recipe.
 		if ( 'post' == $current_screen->base && in_array( $current_screen->post_type, $this->get_supported_post_types() ) ) {
 			
-			include_once( plugin_dir_path( __FILE__ ) . 'html/shortcode-modal.php' );
+			include_once( plugin_dir_path( __FILE__ ) . 'views/shortcode-modal.php' );
 		}
 	}
 	

@@ -86,7 +86,7 @@ jQuery( document ).ready( function( $ ) {
 		clone.insertAfter( row );
 		
 		// Auto-focus on first input after the row is added.
-		clone.find( 'td input:not(.hide-if-js):first, td textarea:first' ).focus();
+		clone.find( 'td input:not(.hide-if-js):not([type="hidden"]):first, td textarea:first' ).focus();
 		
 		setTimeout( function() {
 			$( '.simmer-list-table .new-row' ).removeClass( 'new-row' );

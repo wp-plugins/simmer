@@ -88,10 +88,11 @@ final class Simmer_Recipe_Ingredients {
 	 * @param  string   $description The ingredient description.
 	 * @param  float    $amount      Optional. The ingredient amount.
 	 * @param  string   $unit        Optional. The ingredient unit.
+	 * @param  bool     $is_heading  Optional. Whether the ingredient is a heading.
 	 * @param  int      $order       Optional. The ingredient order number.
 	 * @return int|bool $result      The new ingredient's ID or false on failure.
 	 */
-	public function add_ingredient( $recipe_id, $description, $amount = null, $unit = '', $order = 0 ) {
+	public function add_ingredient( $recipe_id, $description, $amount = null, $unit = '', $is_heading = false, $order = 0 ) {
 		
 		if ( ! absint( $recipe_id ) ) {
 			return false;
@@ -116,6 +117,8 @@ final class Simmer_Recipe_Ingredients {
 			if ( ! empty( $unit ) ) {
 				simmer_add_recipe_item_meta( $item_id, 'unit', $unit );
 			}
+			
+			simmer_add_recipe_item_meta( $item_id, 'is_heading', (bool) $is_heading );
 		}
 		
 		return $item_id;
@@ -134,6 +137,7 @@ final class Simmer_Recipe_Ingredients {
 	 *     @type float  $amount      The ingredient amount.
 	 *     @type string $unit        Optional. The ingredient unit.
 	 *     @type string $description Optional. The ingredient description.
+	 *     @type bool   $is_heading  Whether the ingredient is a heading.
 	 *     @type int    $order       Optional. The ingredient order number.
 	 * }
 	 * @return int|bool $result The ingredient ID or false on failure.
@@ -197,6 +201,11 @@ final class Simmer_Recipe_Ingredients {
 			} else {
 				simmer_delete_recipe_item_meta( $ingredient_id, 'description' );
 			}
+		}
+		
+		if ( isset( $args['is_heading'] ) ) {
+			
+			simmer_update_recipe_item_meta( $ingredient_id, 'is_heading', (bool) $args['is_heading'] );
 		}
 		
 		return $ingredient_id;
