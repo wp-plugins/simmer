@@ -435,7 +435,7 @@ input.simmer-time {
 .simmer-shortcode-modal-content select {
 	width: 100%;
 }
-.select2-dropdown {
+.select2-container .select2-dropdown {
 	z-index: 100002;
 }
 @media screen and (max-width: 782px) {

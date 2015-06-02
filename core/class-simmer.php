@@ -26,7 +26,7 @@ final class Simmer {
 	 * 
 	 * @var string VERSION The plugin version.
 	 */
-	const VERSION = '1.3.2';
+	const VERSION = '1.3.3';
 	
 	/**
 	 * The plugin slug.
@@ -111,12 +111,7 @@ final class Simmer {
 		// Load the necessary supporting files.
 		$this->require_files();
 		
-		if ( is_admin() ) {
-			
-			// Load the admin.
-			$this->admin = Simmer_Admin::get_instance();
-			
-		} else {
+		if ( ! is_admin() ) {
 			
 			// Load the front-end.
 			$this->frontend = new Simmer_Frontend;
@@ -169,11 +164,6 @@ final class Simmer {
 		require( plugin_dir_path( __FILE__ ) . 'class-simmer-installer.php'  );
 		
 		/**
-		 * The license class.
-		 */
-		require_once( plugin_dir_path( __FILE__ ) . 'class-simmer-license.php' );
-		
-		/**
 		 * Supporting functions.
 		 */
 		require_once( plugin_dir_path( __FILE__ ) . 'functions.php' );
@@ -219,9 +209,39 @@ final class Simmer {
 		if ( is_admin() ) {
 			
 			/**
-			 * The admin class.
+			 * The admin dashboard class.
 			 */
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/class-simmer-admin.php' );
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/class-simmer-admin-dashboard.php' );
+			
+			/**
+			 * The recipes admin class.
+			 */
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/class-simmer-admin-recipes.php' );
+			
+			/**
+			 * The admin bulk-add class.
+			 */
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/class-simmer-admin-bulk-add.php' );
+			
+			/**
+			 * The shortcode UI class.
+			 */
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/class-simmer-admin-shortcode-ui.php' );
+			
+			/**
+			 * The admin settings class.
+			 */
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/class-simmer-admin-settings.php' );
+			
+			/**
+			 * The admin functions.
+			 */
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/functions.php' );
+			
+			/**
+			 * The admin hooks.
+			 */
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/hooks.php' );
 			
 		} else {
 			

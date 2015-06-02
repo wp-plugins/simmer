@@ -85,6 +85,7 @@ final class Simmer_Recipe_Ingredient {
 		$this->amount      = $this->get_amount( true );
 		$this->unit        = $this->get_unit( true );
 		$this->description = $this->get_description( true );
+		$this->is_heading  = $this->is_heading( true );
 		
 	}
 	
@@ -180,6 +181,27 @@ final class Simmer_Recipe_Ingredient {
 		$description = apply_filters( 'simmer_recipe_ingredient_description', $description, $this->id );
 		
 		return $description;
+	}
+	
+	/**
+	 * Determine if the ingredient is a heading.
+	 *
+	 * @since 1.3.3
+	 *
+	 * @param  bool   $raw        Whether to get the heading status unaltered from the database.
+	 * @return string $is_heading Whether the ingredient is a heading..
+	 */
+	public function is_heading( $raw = false ) {
+		
+		$is_heading = simmer_get_recipe_item_meta( $this->id, 'is_heading', true );
+		
+		if ( $raw ) {
+			return $is_heading;
+		}
+		
+		$is_heading = apply_filters( 'simmer_recipe_ingredient_is_heading', $is_heading, $this->id );
+		
+		return $is_heading;
 	}
 	
 	/**

@@ -33,14 +33,15 @@ function simmer_get_recipe_ingredient( $ingredient_id ) {
  * @param  string   $description The ingredient description.
  * @param  float    $amount      Optional. The ingredient amount.
  * @param  string   $unit        Optional. The ingredient unit.
+ * @param  bool     $is_heading  Optional. Whether the ingredient is a heading.
  * @param  int      $order       Optional. The ingredient order number.
  * @return int|bool $result      The new ingredient's ID or false on failure.
  */
-function simmer_add_recipe_ingredient( $recipe_id, $description, $amount = null, $unit = '', $order = 0 ) {
+function simmer_add_recipe_ingredient( $recipe_id, $description, $amount = null, $unit = '', $is_heading = false, $order = 0 ) {
 	
 	$ingredients_api = new Simmer_Recipe_Ingredients;
 	
-	$ingredient_id = $ingredients_api->add_ingredient( $recipe_id, $description, $amount, $unit, $order );
+	$ingredient_id = $ingredients_api->add_ingredient( $recipe_id, $description, $amount, $unit, $is_heading, $order );
 	
 	return $ingredient_id;
 }

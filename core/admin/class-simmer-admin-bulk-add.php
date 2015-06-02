@@ -14,27 +14,51 @@
  */
 final class Simmer_Admin_Bulk_Add {
 	
+	/** Singleton **/
+	
 	/**
-	 * Construct the class.
-	 * 
-	 * @since 1.2.0
+	 * The singleton instance of the class.
+	 *
+	 * @since  1.3.3
+	 * @access private
+	 * @var    object $instance.
 	 */
-	public function __construct() {
+	private static $instance = null;
+	
+	/**
+	 * Get the singleton instance of the class.
+	 *
+	 * @since 1.3.3
+	 *
+	 * @return object self::$instance The single instance of the class.
+	 */
+	public static function get_instance() {
 		
-		$this->add_actions();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+		
+		return self::$instance;
 	}
 	
 	/**
-	 * Add the necessary action hooks.
-	 * 
-	 * @since  1.2.0
-	 * @access private
+	 * Prevent the class from being cloned.
+	 *
+	 * @since 1.3.3
 	 */
-	private function add_actions() {
+	public function __clone() {
 		
-		add_action( 'admin_footer', array( $this, 'add_modal' ) );
+		_doing_it_wrong( __FUNCTION__, __( 'The Simmer_Admin_Bulk_Add class can not be cloned', Simmer()->domain ), Simmer()->version );
+	}
+	
+	/**
+	 * Prevent the class from being unserialized.
+	 *
+	 * @since 1.3.3
+	 */
+	public function __wakeup() {
 		
-		add_action( 'wp_ajax_simmer_process_bulk', array( $this, 'process_ajax' ) );
+		_doing_it_wrong( __FUNCTION__, __( 'The Simmer_Admin_Bulk_Add class can not be unserialized', Simmer()->domain ), Simmer()->version );
 	}
 	
 	/**
@@ -49,7 +73,7 @@ final class Simmer_Admin_Bulk_Add {
 		// Only load the modal when editing or creating a new recipe.
 		if ( 'post' == $current_screen->base && $current_screen->post_type == simmer_get_object_type() ) {
 			
-			include_once( plugin_dir_path( __FILE__ ) . 'html/meta-boxes/bulk-add.php' );
+			include_once( plugin_dir_path( __FILE__ ) . 'views/meta-boxes/bulk-add.php' );
 		}
 	}
 	

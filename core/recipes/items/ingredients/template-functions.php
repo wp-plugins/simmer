@@ -12,13 +12,14 @@
  *
  * @since 1.0.0
  * 
+ * @param  array      $args        Optional. @see Simmer_Recipe::get_ingredients().
  * @return array|bool $ingredients The array of ingredients or false if none found.
  */
-function simmer_get_the_ingredients() {
+function simmer_get_the_ingredients( $args = array() ) {
 	
 	$recipe = simmer_get_recipe( get_the_ID() );
 	
-	$ingredients = $recipe->get_ingredients();
+	$ingredients = $recipe->get_ingredients( $args );
 	
 	/**
 	 * Filter the returned array of ingredients.
@@ -94,6 +95,7 @@ function simmer_list_ingredients( $args = array() ) {
 		'list_type'	   => simmer_get_ingredients_list_type(),
 		'list_class'   => 'simmer-ingredients',
 		'item_type'    => apply_filters( 'simmer_ingredients_list_item_type', 'li' ),
+		'item_heading_type' => apply_filters( 'simmer_ingredients_list_item_heading_type', 'h4' ),
 		'item_class'   => 'simmer-ingredient',
 		'none_message' => __( 'This recipe has no ingredients', Simmer()->domain ),
 		'none_class'   => 'simmer-message',
@@ -154,18 +156,27 @@ function simmer_list_ingredients( $args = array() ) {
 		 */
 		$list_attributes = (array) apply_filters( 'simmer_ingredients_list_attributes', $list_attributes );
 		
-		// Build the list's opening tag based on the attributes above.
-		$output .= '<' . sanitize_html_class( $args['list_type'] );
+		if ( $ingredients[0]->is_heading() ) {
 			
-			if ( ! empty( $list_attributes ) ) {
+			$list_open = false;
+			
+		} else {
+			
+			// Build the list's opening tag based on the attributes above.
+			$output .= '<' . sanitize_html_class( $args['list_type'] );
 				
-				foreach( $list_attributes as $attribute => $value ) {
-					$output .= ' ' . sanitize_html_class( $attribute ) . '="' . esc_attr( $value ) . '"';
+				if ( ! empty( $list_attributes ) ) {
+					
+					foreach( $list_attributes as $attribute => $value ) {
+						$output .= ' ' . sanitize_html_class( $attribute ) . '="' . esc_attr( $value ) . '"';
+					}
 				}
-			}
+				
+			$output .= '>';
 			
-		$output .= '>';
+			$list_open = true;
 			
+		}
 			// Loop through the ingredients.
 			foreach ( $ingredients as $ingredient ) {
 				
@@ -178,58 +189,93 @@ function simmer_list_ingredients( $args = array() ) {
 				 */
 				do_action( 'simmer_before_ingredients_list_item', $ingredient );
 				
-				/**
-				 * Create an array of attributes for the list element.
-				 *
-				 * Instead of hardcoding these into the tag itself,
-				 * we use an associative array so folks can easily add
-				 * custom attributes like data-*="" for JavaScript.
-				 */
-				$item_attributes = array(
-					'itemprop' => 'ingredients',
-				);
-				
-				if ( ! empty( $args['item_class'] ) ) {
-					$item_attributes['class'] = $args['item_class'];
-				}
-				
-				/**
-				 * Allow others to filter the list item attributes.
-				 *
-				 * @since 1.0.0
-				 * 
-				 * @param array $item_attributes {
-				 *     The attributes in format $attribute => $value.
-				 * }
-				 */
-				$item_attributes = (array) apply_filters( 'simmer_ingredients_list_item_attributes', $item_attributes, $ingredient );
-				
-				// Build the list item opening tag based on the attributes above.
-				$output .= '<' . sanitize_html_class( $args['item_type'] );
+				// If this is an ingredient heading, change the item tag.
+				if ( $ingredient->is_heading() ) {
 					
-					if ( ! empty( $item_attributes ) ) {
+					if ( true == $list_open ) {
 						
-						foreach( $item_attributes as $attribute => $value ) {
-							$output .= ' ' . sanitize_html_class( $attribute ) . '="' . esc_attr( $value ) . '"';
+						// Close the previous list.
+						$output .= '</' . sanitize_html_class( $args['list_type'] ) . '>';
+						
+						$list_open = false;
+						
+					}
+					
+					// Build the heading.
+					$output .= '<' . sanitize_html_class( $args['item_heading_type'] ) . '>';
+						$output .= esc_html( $ingredient->get_description() );
+					$output .= '</' . sanitize_html_class( $args['item_heading_type'] ) . '>';
+					
+					// Build the new list's opening tag based on the attributes above.
+					$output .= '<' . sanitize_html_class( $args['list_type'] );
+						
+						if ( ! empty( $list_attributes ) ) {
+							
+							foreach( $list_attributes as $attribute => $value ) {
+								$output .= ' ' . sanitize_html_class( $attribute ) . '="' . esc_attr( $value ) . '"';
+							}
 						}
+						
+					$output .= '>';
+					
+					$list_open = true;
+					
+				} else {
+					
+					/**
+					 * Create an array of attributes for the list element.
+					 *
+					 * Instead of hardcoding these into the tag itself,
+					 * we use an associative array so folks can easily add
+					 * custom attributes like data-*="" for JavaScript.
+					 */
+					$item_attributes = array(
+						'itemprop' => 'ingredients',
+					);
+					
+					if ( ! empty( $args['item_class'] ) ) {
+						$item_attributes['class'] = $args['item_class'];
 					}
 					
-				$output .= '>';
+					/**
+					 * Allow others to filter the list item attributes.
+					 *
+					 * @since 1.0.0
+					 * 
+					 * @param array $item_attributes {
+					 *     The attributes in format $attribute => $value.
+					 * }
+					 */
+					$item_attributes = (array) apply_filters( 'simmer_ingredients_list_item_attributes', $item_attributes, $ingredient );
 					
-					if ( $amount = $ingredient->get_amount() ) {
-						$output .= '<span class="simmer-ingredient-amount">' . esc_html( $amount ) . '</span> ';
-					}
+					// Build the list item opening tag based on the attributes above.
+					$output .= '<' . sanitize_html_class( $args['item_type'] );
+						
+						if ( ! empty( $item_attributes ) ) {
+							
+							foreach( $item_attributes as $attribute => $value ) {
+								$output .= ' ' . sanitize_html_class( $attribute ) . '="' . esc_attr( $value ) . '"';
+							}
+						}
+						
+					$output .= '>';
+						
+						if ( $amount = $ingredient->get_amount() ) {
+							$output .= '<span class="simmer-ingredient-amount">' . esc_html( $amount ) . '</span> ';
+						}
+						
+						if ( $unit = $ingredient->get_unit() ) {
+							$output .= '<span class="simmer-ingredient-unit">' . esc_html( $unit ) . '</span> ';
+						}
+						
+						if ( $description = $ingredient->get_description() ) {
+							$output .= '<span class="simmer-ingredient-description">' . esc_html( $description ) . '</span>';
+						}
+						
+					// Close the list item.
+					$output .= '</' . sanitize_html_class( $args['item_type'] ) . '>';
 					
-					if ( $unit = $ingredient->get_unit() ) {
-						$output .= '<span class="simmer-ingredient-unit">' . esc_html( $unit ) . '</span> ';
-					}
-					
-					if ( $description = $ingredient->get_description() ) {
-						$output .= '<span class="simmer-ingredient-description">' . esc_html( $description ) . '</span>';
-					}
-					
-				// Close the list item.
-				$output .= '</' . sanitize_html_class( $args['item_type'] ) . '>';
+				}
 				
 				/**
 				 * Fire after printing the current ingredient.

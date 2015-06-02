@@ -12,14 +12,14 @@
  *
  * @since 1.0.0
  * 
- * @param  int        $recipe_id    Optional. A recipe's ID.
+ * @param  array      $args         Optional. @see Simmer_Recipe::get_instructions().
  * @return array|bool $instructions The array of instructions or false if none set.
  */
-function simmer_get_the_instructions() {
+function simmer_get_the_instructions( $args = array() ) {
 	
 	$recipe = simmer_get_recipe( get_the_ID() );
 	
-	$instructions = $recipe->get_instructions();
+	$instructions = $recipe->get_instructions( $args );
 	
 	/**
 	 * Filter the returned array of instructions.
