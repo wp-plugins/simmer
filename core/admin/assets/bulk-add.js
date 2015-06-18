@@ -132,9 +132,9 @@ var simmerBulkModal;
 			var count = row.parent().find( 'tr' ).length;
 			
 			if ( 'ingredient' === type ) {
-				clone.find( '.simmer-amt input' ).val( item.amount );
-				clone.find( '.simmer-unit select' ).val( item.unit );
-				clone.find( '.simmer-desc input' ).val( item.description );
+				clone.find( '.simmer-amt input:not([type="hidden"])' ).val( item.amount );
+				clone.find( '.simmer-unit select:not([type="hidden"])' ).val( item.unit );
+				clone.find( '.simmer-desc input:not([type="hidden"])' ).val( item.description );
 			} else if ( 'instruction' === type ) {
 				clone.find( '.simmer-desc textarea' ).val( item.description );
 			}
