@@ -132,13 +132,14 @@ final class Simmer_Recipe_Ingredient {
 	public function get_unit( $raw = false ) {
 		
 		$unit = simmer_get_recipe_item_meta( $this->id, 'unit', true );
+		$count = simmer_get_recipe_item_meta( $this->id, 'amount', true );
 		
 		// Allow bypassing of the formatting and filter.
 		if ( $raw ) {
 			return $unit;
 		}
 		
-		$unit = $this->get_unit_label( $unit );
+		$unit = $this->get_unit_label( $unit , $count );
 		
 		/**
 		 * Filter the ingredient unit of measure.

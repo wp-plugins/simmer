@@ -41,6 +41,8 @@ Simmer is built with developers in mind. Utilize the many actions and filters de
 
 **Follow Simmer's development on [Github](http://github.com/bwdinc/simmer/) and [simmerwp.com](https://simmerwp.com/blog).**
 
+Sign up for a [Simmer membership](https://simmerwp.com/membership/) to receive premium support and other benefits, and browse our [add-ons](https://simmerwp.com/extensions/), too.
+
 == Installation ==
 
 1. Activate the plugin through the 'Plugins' menu in WordPress
@@ -74,6 +76,10 @@ Yes, Simmer provides a number of customized options for each recipe to provide m
 Yes, with the Tinypass for Simmer extension (coming soon) you can easily monetize your media business or blog through micro payments. [Find out more from Tinypass](http://tinypass.com/).
 
 == Changelog ==
+
+= 1.3.5 = 
+* Fix: Plurals in ingredients not appearing correctly
+* New: Add on cards and assets
 
 = 1.3.4 =
 * Fix: Ingredients converting to headings when using bulk-add
