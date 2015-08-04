@@ -11,7 +11,7 @@
  * Plugin Name: Simmer for Recipes
  * Plugin URI:  https://simmerwp.com
  * Description: A recipe publishing tool for WordPress.
- * Version:     1.3.5
+ * Version:     1.3.6
  * Author:      Team Simmer
  * Author URI:  https://simmerwp.com/about/
  * License:     GPL-2.0+
