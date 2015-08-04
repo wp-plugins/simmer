@@ -77,9 +77,12 @@ Yes, with the Tinypass for Simmer extension (coming soon) you can easily monetiz
 
 == Changelog ==
 
+= 1.3.6 =
+* New: Add Spanish localization
+
 = 1.3.5 = 
-* Fix: Plurals in ingredients not appearing correctly
-* New: Add on cards and assets
+* Fix: Plurals in ingredients
+* New: Add add-on cards and assets
 
 = 1.3.4 =
 * Fix: Ingredients converting to headings when using bulk-add
@@ -137,7 +140,7 @@ Yes, with the Tinypass for Simmer extension (coming soon) you can easily monetiz
 * Add shortcode recipe template with link & excerpt
 * Adjust admin UI styling
 * Change "attribution" to "source" and add label
-* Remove <p> option from instructions list display
+* Remove < p > option from instructions list display
 * Fix instructions list display setting
 * Fix recipe excerpt display
 * Update inline docs
