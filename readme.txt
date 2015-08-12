@@ -2,7 +2,7 @@
 Contributors: ChaseWiseman, lchelak, gobwd
 Tags: recipes, recipe, cooking, food, food blog, content marketing, food content marketing, drinks, drink recipes, tutorial maker, tutorials, recipe maker, baking, crafts, DIY, do it yourself
 Requires at least: 3.8
-Tested up to: 4.2.3
+Tested up to: 4.3
 Stable tag: 1.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -38,6 +38,7 @@ Simmer is built with developers in mind. Utilize the many actions and filters de
 * Embed recipes anywhere in your posts or pages
 * Featured thumbnail for each recipe
 * Front-end recipe printing
+* Localization in multiple languages and locales including Spanish, [others soon](https://simmerwp.com/blog/new-languages/)
 
 **Follow Simmer's development on [Github](http://github.com/bwdinc/simmer/) and [simmerwp.com](https://simmerwp.com/blog).**
 
