@@ -29,12 +29,12 @@ class Simmer_Template_Loader {
 	 * @return string
 	 */
 	public function get_template_part( $slug, $name = null, $load = true ) {
-		
+
 		/**
 		 * Trigger when a template part is requested.
 		 *
 		 * @since 1.0.0
-		 * 
+		 *
 		 * @param string $slug The requested slug.
 		 * @param string $name The requested name.
 		 */
@@ -59,13 +59,13 @@ class Simmer_Template_Loader {
 	 * @return array
 	 */
 	private function get_template_file_names( $slug, $name ) {
-		
+
 		$templates = array();
-		
+
 		if ( isset( $name ) ) {
 			$templates[] = $slug . '-' . $name . '.php';
 		}
-		
+
 		$templates[] = $slug . '.php';
 
 		/**
@@ -80,7 +80,7 @@ class Simmer_Template_Loader {
 		 * @param string $name      The requested name.
 		 */
 		$templates = apply_filters( 'simmer_get_template_part', $templates, $slug, $name );
-		
+
 		return $templates;
 	}
 
@@ -100,28 +100,28 @@ class Simmer_Template_Loader {
 	 * @return string       $located        The template filename if one is located.
 	 */
 	private function locate_template( $template_names, $load = false, $require_once = true ) {
-		
+
 		// No file found yet.
 		$located = false;
 
 		// Remove empty entries.
 		$template_names = array_filter( (array) $template_names );
-		
+
 		$template_paths = $this->get_template_paths();
 
 		// Try to find a template file.
 		foreach ( $template_names as $template_name ) {
-			
+
 			// Trim off any slashes from the template name
 			$template_name = ltrim( $template_name, '/' );
 
 			// Try locating this template file by looping through the template paths.
 			foreach ( $template_paths as $template_path ) {
-				
+
 				if ( file_exists( $template_path . $template_name ) ) {
-					
+
 					$located = $template_path . $template_name;
-					
+
 					break 2;
 				}
 			}
@@ -147,7 +147,7 @@ class Simmer_Template_Loader {
 	 * @return array $template_paths Possible template paths.
 	 */
 	private function get_template_paths() {
-		
+
 		$theme_directory = 'simmer';
 
 		$template_paths = array(
@@ -171,10 +171,10 @@ class Simmer_Template_Loader {
 
 		// Sort the file paths based on priority.
 		ksort( $template_paths, SORT_NUMERIC );
-		
+
 		// Trailing slash all of the template paths.
 		$template_paths = array_map( 'trailingslashit', $template_paths );
-		
+
 		return $template_paths;
 	}
 
@@ -187,7 +187,7 @@ class Simmer_Template_Loader {
 	 * @return string
 	 */
 	private function get_templates_dir() {
-		
+
 		return trailingslashit( plugin_dir_path( __FILE__ ) . 'templates' );
 	}
 }

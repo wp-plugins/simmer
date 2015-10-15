@@ -13,7 +13,7 @@
  * @since 1.3.0
  */
 final class Simmer_Recipe_Item_Meta {
-	
+
 	/**
 	 * The database meta type to use when getting meta values.
 	 *
@@ -22,17 +22,17 @@ final class Simmer_Recipe_Item_Meta {
 	 * @var string $meta_type.
 	 */
 	public $meta_type;
-	
+
 	/**
 	 * Construct the class.
 	 *
 	 * @since 1.3.0
 	 */
 	public function __construct() {
-		
+
 		$this->meta_type = 'recipe_item';
 	}
-	
+
 	/**
 	 * Add the custom table names to the database object.
 	 *
@@ -44,16 +44,16 @@ final class Simmer_Recipe_Item_Meta {
 	 * @global object $wpdb The WordPress database class.
 	 */
 	public static function add_meta_table_names() {
-		
+
 		global $wpdb;
-		
+
 		$table_name = 'simmer_recipe_itemmeta';
-		
+
 		$wpdb->recipe_itemmeta = $wpdb->prefix . $table_name;
-		
+
 		$wpdb->tables[] = $table_name;
 	}
-	
+
 	/**
 	 * Get metadata for an item.
 	 *
@@ -66,12 +66,12 @@ final class Simmer_Recipe_Item_Meta {
 	 * @return array|string|false $metadata Array of metadata, a single metadata value, or false on failure.
 	 */
 	public function get_item_meta( $item_id, $meta_key = '', $single = false ) {
-		
+
 		$metadata = get_metadata( $this->meta_type, $item_id, $meta_key, $single );
-		
+
 		return $metadata;
 	}
-	
+
 	/**
 	 * Add metadata to an item.
 	 *
@@ -86,12 +86,12 @@ final class Simmer_Recipe_Item_Meta {
 	 * @return int|bool $result     The new metadata's ID on success or false on failure.
 	 */
 	public function add_item_meta( $item_id, $meta_key, $meta_value, $unique = false ) {
-		
+
 		$result = add_metadata( $this->meta_type, $item_id, $meta_key, $meta_value, $unique );
-		
+
 		return $result;
 	}
-	
+
 	/**
 	 * Update an item's metadata.
 	 *
@@ -110,12 +110,12 @@ final class Simmer_Recipe_Item_Meta {
 	 *                              be updated and false will be returned.
 	 */
 	public function update_item_meta( $item_id, $meta_key, $meta_value, $prev_value = '' ) {
-		
+
 		$result = update_metadata( $this->meta_type, $item_id, $meta_key, $meta_value, $prev_value );
-		
+
 		return $result;
 	}
-	
+
 	/**
 	 * Delete metadata from an item.
 	 *
@@ -129,9 +129,9 @@ final class Simmer_Recipe_Item_Meta {
 	 * @return bool     $result     True on success, false on failure.
 	 */
 	public function delete_item_meta( $item_id, $meta_key, $meta_value = '' ) {
-		
+
 		$result = delete_metadata( $this->meta_type, $item_id, $meta_key, $meta_value );
-		
+
 		return $result;
 	}
 }

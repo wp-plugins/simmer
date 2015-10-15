@@ -40,34 +40,34 @@ if ( $total_time ) {
 } ?>
 
 <p>
-	<label for="simmer_prep"><?php _e( 'Prep Time', Simmer()->domain ); ?>:</label><br />
+	<label for="simmer_prep"><?php _e( 'Prep Time', 'simmer' ); ?>:</label><br />
 	<input class="simmer-time" name="simmer_times[prep][h]" type="number" min="0" value="<?php echo esc_html( $prep_h ); ?>" placeholder="hh" />
 	:
 	<input class="simmer-time" name="simmer_times[prep][m]" type="number" min="0" value="<?php echo esc_html( $prep_m ); ?>" placeholder="mm" />
 </p>
 
 <p>
-	<label for="simmer_cook"><?php _e( 'Cook Time', Simmer()->domain ); ?>:</label><br />
+	<label for="simmer_cook"><?php _e( 'Cook Time', 'simmer' ); ?>:</label><br />
 	<input class="simmer-time" name="simmer_times[cook][h]" type="number" min="0" value="<?php echo esc_html( $cook_h ); ?>" placeholder="hh" />
 	:
 	<input class="simmer-time" name="simmer_times[cook][m]" type="number" min="0" value="<?php echo esc_html( $cook_m ); ?>" placeholder="mm" />
 </p>
 
 <p>
-	<label for="simmer_total"><?php _e( 'Total Time', Simmer()->domain ); ?>:</label><br />
+	<label for="simmer_total"><?php _e( 'Total Time', 'simmer' ); ?>:</label><br />
 	<input class="simmer-time" name="simmer_times[total][h]" type="number" min="0" value="<?php echo esc_html( $total_h ); ?>" placeholder="hh" />
 	:
 	<input class="simmer-time" name="simmer_times[total][m]" type="number" min="0" value="<?php echo esc_html( $total_m ); ?>" placeholder="mm" />
 </p>
 
 <p>
-	<label for="simmer_servings"><?php _e( 'Servings', Simmer()->domain ); ?>:</label><br />
+	<label for="simmer_servings"><?php _e( 'Servings', 'simmer' ); ?>:</label><br />
 	<input class="simmer-time" type="number" name="simmer_servings" value="<?php echo esc_attr( $servings ); ?>" placeholder="4" min="1" />
-	<input type="text" name="simmer_servings_label" value="<?php echo esc_html( $servings_label ); ?>" placeholder="<?php _e( 'people', Simmer()->domain ); ?>" />
+	<input type="text" name="simmer_servings_label" value="<?php echo esc_html( $servings_label ); ?>" placeholder="<?php _e( 'people', 'simmer' ); ?>" />
 </p>
 
 <p>
-	<label for="simmer_yield"><?php _e( 'Yield', Simmer()->domain ); ?>:</label><br />
+	<label for="simmer_yield"><?php _e( 'Yield', 'simmer' ); ?>:</label><br />
 	<input type="text" name="simmer_yield" value="<?php echo esc_html( get_post_meta( $recipe->ID, '_recipe_yield', true ) ); ?>" placeholder="24 cookies" />
 </p>
 
@@ -87,8 +87,8 @@ if ( ! $source_url && ( $source_url = get_post_meta( $recipe->ID, '_recipe_attri
 } ?>
 
 <p>
-	<label for="simmer_source_text"><?php _e( 'Source', Simmer()->domain ); ?>:</label><br />
+	<label for="simmer_source_text"><?php _e( 'Source', 'simmer' ); ?>:</label><br />
 	<input id="simmer_source_text" name="simmer_source_text" type="text" value="<?php echo esc_html( $source_text ); ?>" placeholder="Source name" /><br />
-	<label for="simmer_source_url"><?php _e( 'Source URL', Simmer()->domain ); ?>:</label><br />
+	<label for="simmer_source_url"><?php _e( 'Source URL', 'simmer' ); ?>:</label><br />
 	<input id="simmer_source_url" name="simmer_source_url" type="text" value="<?php echo esc_url( $source_url ); ?>" placeholder="http://somesource.com" />
 </p>

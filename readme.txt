@@ -3,7 +3,7 @@ Contributors: ChaseWiseman, lchelak, gobwd
 Tags: recipes, recipe, cooking, food, food blog, content marketing, food content marketing, drinks, drink recipes, tutorial maker, tutorials, recipe maker, baking, crafts, DIY, do it yourself
 Requires at least: 3.8
 Tested up to: 4.3
-Stable tag: 1.3.6
+Stable tag: 1.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,24 @@ Yes, Simmer provides a number of customized options for each recipe to provide m
 Yes, with the Tinypass for Simmer extension (coming soon) you can easily monetize your media business or blog through micro payments. [Find out more from Tinypass](http://tinypass.com/).
 
 == Changelog ==
+= 1.3.8 = 
+* Fix: BuddyPress conflicts resolved
+* Fix: Make sure we actually have a WP_Query object 
+* Fix: Used instanceof instead of is_a
+* Fix: Hardcoded textdomain
+* New: Added grunt-wp-i18n support
+* Fix: Made measurements translatable
+* New: Regenerated pot file using grunt
+
+= 1.3.7 = 
+* Fix: Add lines for unit measurements to main .pot file
+* New: Add pt_BR localization
+* Fix: Trimmed whitespace
+* New: Add plugin compatibility class
+* Fix: Removed nopaging argument
+* Fix: Improved escaping and sanitization
+* Fix: Fix kilograms spelling in all .pot and .po files
+* New: Fill in new unit measurements strings for es_ES
 
 = 1.3.6 =
 * New: Add Spanish localization

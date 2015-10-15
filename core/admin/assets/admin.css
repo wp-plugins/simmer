@@ -21,7 +21,7 @@
   }
 }
 */
- 
+
 [class^="simmer-icon-"]:before, [class*=" simmer-icon-"]:before {
 	display: inline-block;
 	width: 20px;
@@ -219,7 +219,7 @@
 	        transform: translateY( -50% );
 }
 @media screen and ( max-width: 520px ) {
-	
+
 	.simmer-bulk-modal-wrap {
 		width: auto;
 		margin-left: 0;
@@ -283,7 +283,7 @@
 	width: 100%;
 }
 @media screen and (max-width: 782px) {
-	
+
 	.simmer-bulk-modal-content {
 		padding: 50px 16px 60px;
 	}
@@ -319,7 +319,7 @@
 	vertical-align: middle;
 }
 @media screen and (max-width: 782px) {
-	
+
 	.simmer-bulk-modal-footer .cancel {
 		line-height: 32px;
 	}
@@ -372,7 +372,7 @@ input.simmer-time {
 	        transform: translateY( -50% );
 }
 @media screen and ( max-width: 520px ) {
-	
+
 	.simmer-shortcode-modal-wrap {
 		width: auto;
 		margin-left: 0;
@@ -439,7 +439,7 @@ input.simmer-time {
 	z-index: 100002;
 }
 @media screen and (max-width: 782px) {
-	
+
 	.simmer-shortcode-modal-content {
 		padding: 50px 16px 60px;
 	}
@@ -475,7 +475,7 @@ input.simmer-time {
 	vertical-align: middle;
 }
 @media screen and (max-width: 782px) {
-	
+
 	.simmer-shortcode-modal-footer .cancel {
 		line-height: 32px;
 	}
@@ -483,7 +483,7 @@ input.simmer-time {
 
 /* The Coming Soon Page */
 .simmer-coming-soon {
-	
+
 }
 .simmer-coming-soon > div {
 	position: relative;
@@ -589,7 +589,7 @@ input.simmer-time {
 }
 
 @media screen and ( max-width: 782px ) {
-	
+
 	.simmer-license-card {
 		margin-left: 0;
 		margin-right: 0;
@@ -686,7 +686,7 @@ input.simmer-time {
 }
 
 @media screen and ( max-width: 782px ) {
-	
+
 	.simmer-extension-card {
 		margin-left: 0;
 		margin-right: 0;

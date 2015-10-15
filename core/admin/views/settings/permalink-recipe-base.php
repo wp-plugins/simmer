@@ -1,9 +1,9 @@
 <?php
 /**
  * The Recipe Base settings field.
- * 
+ *
  * @since 1.0.0
- * 
+ *
  * @package Simmer\Settings
  */
 ?>

@@ -25,11 +25,11 @@
  * @return array $items The retrieved items.
  */
 function simmer_get_recipe_items( $recipe_id, $args = array() ) {
-	
+
 	$items_api = new Simmer_Recipe_Items;
-		
+
 	$items = $items_api->get_items( $recipe_id, $args );
-	
+
 	return $items;
 }
 
@@ -42,11 +42,11 @@ function simmer_get_recipe_items( $recipe_id, $args = array() ) {
  * @return object|bool $item    The requested item or false on failure.
  */
 function simmer_get_recipe_item( $item_id ) {
-	
+
 	$items_api = new Simmer_Recipe_Items;
-		
+
 	$item = $items_api->get_item( $item_id );
-	
+
 	return $item;
 }
 
@@ -61,11 +61,11 @@ function simmer_get_recipe_item( $item_id ) {
  * @return int|bool $result    The ID of the newly added item or false on failure.
  */
 function simmer_add_recipe_item( $recipe_id, $type, $order = 0 ) {
-	
+
 	$items_api = new Simmer_Recipe_Items;
-		
+
 	$item_id = $items_api->add_item( $recipe_id, $type, $order );
-	
+
 	return $item_id;
 }
 
@@ -85,11 +85,11 @@ function simmer_add_recipe_item( $recipe_id, $type, $order = 0 ) {
  * @return bool $result Whether the item was updated.
  */
 function simmer_update_recipe_item( $item_id, $args ) {
-	
+
 	$items_api = new Simmer_Recipe_Items;
-		
+
 	$result = $items_api->update_item( $item_id, $args );
-	
+
 	return $result;
 }
 
@@ -102,11 +102,11 @@ function simmer_update_recipe_item( $item_id, $args ) {
  * @return bool $result  Whether the item was deleted.
  */
 function simmer_delete_recipe_item( $item_id ) {
-	
+
 	$items_api = new Simmer_Recipe_Items;
-		
+
 	$result = $items_api->delete_item( $item_id );
-	
+
 	return $result;
 }
 
@@ -122,11 +122,11 @@ function simmer_delete_recipe_item( $item_id ) {
  * @return array|string|false $metadata Array of metadata, a single metadata value, or false on failure.
  */
 function simmer_get_recipe_item_meta( $item_id, $meta_key = '', $single = false ) {
-	
+
 	$item_meta_api = new Simmer_Recipe_Item_Meta;
-	
+
 	$metadata = $item_meta_api->get_item_meta( $item_id, $meta_key, $single );
-	
+
 	return $metadata;
 }
 
@@ -144,11 +144,11 @@ function simmer_get_recipe_item_meta( $item_id, $meta_key = '', $single = false 
  * @return int|bool $result     The new metadata's ID on success or false on failure.
  */
 function simmer_add_recipe_item_meta( $item_id, $meta_key, $meta_value, $unique = false ) {
-	
+
 	$item_meta_api = new Simmer_Recipe_Item_Meta;
-	
+
 	$result = $item_meta_api->add_item_meta( $item_id, $meta_key, $meta_value, $unique );
-	
+
 	return $result;
 }
 
@@ -170,11 +170,11 @@ function simmer_add_recipe_item_meta( $item_id, $meta_key, $meta_value, $unique 
  *                              be updated and false will be returned.
  */
 function simmer_update_recipe_item_meta( $item_id, $meta_key, $meta_value, $prev_value = '' ) {
-	
+
 	$item_meta_api = new Simmer_Recipe_Item_Meta;
-	
+
 	$result = $item_meta_api->update_item_meta( $item_id, $meta_key, $meta_value, $prev_value );
-	
+
 	return $result;
 }
 
@@ -191,10 +191,10 @@ function simmer_update_recipe_item_meta( $item_id, $meta_key, $meta_value, $prev
  * @return bool     $result     True on success, false on failure.
  */
 function simmer_delete_recipe_item_meta( $item_id, $meta_key, $meta_value = '' ) {
-	
+
 	$item_meta_api = new Simmer_Recipe_Item_Meta;
-	
+
 	$result = $item_meta_api->delete_item_meta( $item_id, $meta_key, $meta_value );
-	
+
 	return $result;
 }

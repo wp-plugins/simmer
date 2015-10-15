@@ -15,9 +15,9 @@
  * @return object $simmer The singleton instance of Simmer.
  */
 function Simmer() {
-	
+
 	$simmer = Simmer::get_instance();
-	
+
 	return $simmer;
 }
 
@@ -32,7 +32,7 @@ function Simmer() {
  * @return string The object type slug.
  */
 function simmer_get_object_type() {
-	
+
 	return 'recipe';
 }
 
@@ -47,7 +47,7 @@ function simmer_get_object_type() {
  * @return string The category taxonomy slug.
  */
 function simmer_get_category_taxonomy() {
-	
+
 	return 'recipe_category';
 }
 
@@ -59,18 +59,18 @@ function simmer_get_category_taxonomy() {
  * @return string $slug The base permalink slug.
  */
 function simmer_get_archive_base() {
-	
+
 	$slug = get_option( 'simmer_archive_base', 'recipes' );
-	
+
 	/**
 	 * Allow others to filter the base permalink slug.
 	 *
 	 * since 1.0.0
-	 * 
+	 *
 	 * @param string $slug The base permalink slug.
 	 */
 	$slug = apply_filters( 'simmer_archive_base', $slug );
-	
+
 	return $slug;
 }
 
@@ -78,14 +78,14 @@ function simmer_get_archive_base() {
  * Convert a hex color to RGB values.
  *
  * @since 1.0.0
- * 
+ *
  * @param string $hex The color in hex format. The # is optional.
  * @return array $rgb The RGB values.
  */
 function simmer_hex_to_rgb( $hex ) {
-	
+
 	$hex = str_replace( '#', '', $hex );
-	
+
 	if ( strlen( $hex ) == 3 ) {
 		$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
 		$g = hexdec( substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) );
@@ -95,12 +95,12 @@ function simmer_hex_to_rgb( $hex ) {
 		$g = hexdec( substr( $hex, 2, 2 ) );
 		$b = hexdec( substr( $hex, 4, 2 ) );
 	}
-	
+
 	$rgb = array(
 		$r,
 		$g,
 		$b,
 	);
-	
+
 	return $rgb;
 }
